@@ -1,0 +1,5 @@
+Loading rules...
+Error: Unable to load XML from any of: ./tiles/Summer.xml, ./Summer.xml
+    at fetchTextWithFallback (file:///Users/saugatshakya/Downloads/streaming_wfc_v14_1_progress_ready/rules.js:57:9)
+    at async loadSummerRules (file:///Users/saugatshakya/Downloads/streaming_wfc_v14_1_progress_ready/rules.js:61:44)
+    at async main (file:///Users/saugatshakya/Downloads/streaming_wfc_v14_1_progress_ready/run_experiments.mjs:161:17)

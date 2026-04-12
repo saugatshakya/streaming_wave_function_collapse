@@ -1,0 +1,624 @@
+{
+  "generated_at": "2026-04-10T01:51:01.138Z",
+  "target_generated_chunks": 100,
+  "demo_config": {
+    "seed": 20260330,
+    "chunk_size": 10,
+    "viewport_width": 8,
+    "viewport_height": 8,
+    "memory_limit_chunks": 8,
+    "frontier_trigger_tiles": 2
+  },
+  "movement": {
+    "total_tile_moves": 980,
+    "total_recorded_segments": 99,
+    "unique_player_chunks_visited": 99,
+    "path_strategy": "horizontal march with periodic revisit checkpoints",
+    "sample_segments": [
+      {
+        "from": {
+          "x": 15,
+          "y": 15
+        },
+        "to": {
+          "x": 15,
+          "y": 15
+        },
+        "generatedAfterSegment": 1,
+        "storageLoadsAfterSegment": 0,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 15,
+          "y": 15
+        },
+        "to": {
+          "x": 25,
+          "y": 15
+        },
+        "generatedAfterSegment": 3,
+        "storageLoadsAfterSegment": 1,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 25,
+          "y": 15
+        },
+        "to": {
+          "x": 35,
+          "y": 15
+        },
+        "generatedAfterSegment": 4,
+        "storageLoadsAfterSegment": 2,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 35,
+          "y": 15
+        },
+        "to": {
+          "x": 45,
+          "y": 15
+        },
+        "generatedAfterSegment": 5,
+        "storageLoadsAfterSegment": 3,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 45,
+          "y": 15
+        },
+        "to": {
+          "x": 55,
+          "y": 15
+        },
+        "generatedAfterSegment": 6,
+        "storageLoadsAfterSegment": 4,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 55,
+          "y": 15
+        },
+        "to": {
+          "x": 65,
+          "y": 15
+        },
+        "generatedAfterSegment": 7,
+        "storageLoadsAfterSegment": 5,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 65,
+          "y": 15
+        },
+        "to": {
+          "x": 75,
+          "y": 15
+        },
+        "generatedAfterSegment": 8,
+        "storageLoadsAfterSegment": 6,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 75,
+          "y": 15
+        },
+        "to": {
+          "x": 85,
+          "y": 15
+        },
+        "generatedAfterSegment": 9,
+        "storageLoadsAfterSegment": 7,
+        "evictionsAfterSegment": 1
+      },
+      {
+        "from": {
+          "x": 85,
+          "y": 15
+        },
+        "to": {
+          "x": 95,
+          "y": 15
+        },
+        "generatedAfterSegment": 10,
+        "storageLoadsAfterSegment": 8,
+        "evictionsAfterSegment": 2
+      },
+      {
+        "from": {
+          "x": 95,
+          "y": 15
+        },
+        "to": {
+          "x": 105,
+          "y": 15
+        },
+        "generatedAfterSegment": 11,
+        "storageLoadsAfterSegment": 9,
+        "evictionsAfterSegment": 3
+      },
+      {
+        "from": {
+          "x": 105,
+          "y": 15
+        },
+        "to": {
+          "x": 115,
+          "y": 15
+        },
+        "generatedAfterSegment": 12,
+        "storageLoadsAfterSegment": 10,
+        "evictionsAfterSegment": 4
+      },
+      {
+        "from": {
+          "x": 115,
+          "y": 15
+        },
+        "to": {
+          "x": 125,
+          "y": 15
+        },
+        "generatedAfterSegment": 13,
+        "storageLoadsAfterSegment": 11,
+        "evictionsAfterSegment": 5
+      }
+    ],
+    "final_player_position": {
+      "x": 995,
+      "y": 15
+    }
+  },
+  "empirical_time": {
+    "generated_chunks": 100,
+    "total_solve_time_ms": 4392.295879999998,
+    "avg_per_generated_chunk_ms": 43.922958799999975,
+    "p95_per_generated_chunk_ms": 90.26295799999991,
+    "max_per_generated_chunk_ms": 117.75437499999998,
+    "failed_generations": 0,
+    "generation_records_sample": [
+      {
+        "cx": 1,
+        "cy": 1,
+        "elapsedMs": 108.69541699999996,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3236926071
+      },
+      {
+        "cx": 2,
+        "cy": 1,
+        "elapsedMs": 33.57741699999997,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 812871282
+      },
+      {
+        "cx": 3,
+        "cy": 1,
+        "elapsedMs": 92.22916700000007,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3204844394
+      },
+      {
+        "cx": 4,
+        "cy": 1,
+        "elapsedMs": 48.01179100000002,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1109205819
+      },
+      {
+        "cx": 5,
+        "cy": 1,
+        "elapsedMs": 32.92379099999994,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2672210207
+      },
+      {
+        "cx": 6,
+        "cy": 1,
+        "elapsedMs": 42.22120800000005,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 273914054
+      },
+      {
+        "cx": 7,
+        "cy": 1,
+        "elapsedMs": 33.84804200000008,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1851644386
+      },
+      {
+        "cx": 8,
+        "cy": 1,
+        "elapsedMs": 79.40983399999993,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 429968169
+      },
+      {
+        "cx": 9,
+        "cy": 1,
+        "elapsedMs": 90.26295799999991,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2935189062
+      },
+      {
+        "cx": 10,
+        "cy": 1,
+        "elapsedMs": 51.36833300000012,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1231709082
+      },
+      {
+        "cx": 11,
+        "cy": 1,
+        "elapsedMs": 41.17037500000015,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1756772760
+      },
+      {
+        "cx": 12,
+        "cy": 1,
+        "elapsedMs": 30.417500000000018,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 4116808089
+      },
+      {
+        "cx": 13,
+        "cy": 1,
+        "elapsedMs": 28.026792000000114,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3412359718
+      },
+      {
+        "cx": 14,
+        "cy": 1,
+        "elapsedMs": 39.50475000000006,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2197834416
+      },
+      {
+        "cx": 15,
+        "cy": 1,
+        "elapsedMs": 32.193457999999964,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2020108173
+      }
+    ]
+  },
+  "empirical_memory": {
+    "current_memory_chunks": 8,
+    "peak_memory_chunks": 9,
+    "peak_queue_length": 2,
+    "total_evictions": 92,
+    "total_storage_loads": 98,
+    "approximate_peak_tile_slots": 900,
+    "local_storage_entries": 100
+  },
+  "correctness": {
+    "seam_violations": 0,
+    "internal_violations": 0,
+    "reload_checks": [],
+    "reload_checks_passed": 0,
+    "reload_checks_failed": 0,
+    "aggregate_reload_matches": 98,
+    "aggregate_reload_mismatches": 0
+  },
+  "theoretical_complexity": {
+    "per_chunk_boundary_seeding_time": "O(G^2 * T)",
+    "per_chunk_storage_reload_time": "O(G^2)",
+    "per_chunk_worst_case_solver_time": "O(T^(G^2))",
+    "active_memory_space": "O(M * G^2)",
+    "explanation": {
+      "G": "chunk size",
+      "T": "tile alphabet size",
+      "M": "configured in-memory chunk limit"
+    }
+  },
+  "assignment_expectation_notes": {
+    "source_assignments": [
+      "Assignment-1-ADA2026 (1).pdf",
+      "assignment_2 (1).pdf",
+      "ADA2026_Assignment3 (2).pdf"
+    ],
+    "emphasis": [
+      "show all steps clearly",
+      "justify time complexity from structure",
+      "discuss correctness, not just runtime",
+      "connect implementation choices to algorithmic trade-offs"
+    ]
+  },
+  "key_logs_sample": [
+    {
+      "t": 4054.947583,
+      "message": "generated chunk 81,1"
+    },
+    {
+      "t": 4054.980708,
+      "message": "evicted chunk 73,1"
+    },
+    {
+      "t": 4055.052542,
+      "message": "storage load 81,1"
+    },
+    {
+      "t": 4095.40825,
+      "message": "generated chunk 82,1"
+    },
+    {
+      "t": 4095.428583,
+      "message": "evicted chunk 74,1"
+    },
+    {
+      "t": 4095.475667,
+      "message": "storage load 82,1"
+    },
+    {
+      "t": 4123.807958,
+      "message": "generated chunk 83,1"
+    },
+    {
+      "t": 4123.8315,
+      "message": "evicted chunk 75,1"
+    },
+    {
+      "t": 4123.891333,
+      "message": "storage load 83,1"
+    },
+    {
+      "t": 4183.055542,
+      "message": "generated chunk 84,1"
+    },
+    {
+      "t": 4183.079083,
+      "message": "evicted chunk 76,1"
+    },
+    {
+      "t": 4183.132792,
+      "message": "storage load 84,1"
+    },
+    {
+      "t": 4292.212292,
+      "message": "generated chunk 85,1"
+    },
+    {
+      "t": 4292.236833,
+      "message": "evicted chunk 77,1"
+    },
+    {
+      "t": 4292.323167,
+      "message": "storage load 85,1"
+    },
+    {
+      "t": 4323.148,
+      "message": "generated chunk 86,1"
+    },
+    {
+      "t": 4323.175042,
+      "message": "evicted chunk 78,1"
+    },
+    {
+      "t": 4327.582208,
+      "message": "storage load 86,1"
+    },
+    {
+      "t": 4367.834083,
+      "message": "generated chunk 87,1"
+    },
+    {
+      "t": 4367.860208,
+      "message": "evicted chunk 79,1"
+    },
+    {
+      "t": 4368.064333,
+      "message": "storage load 87,1"
+    },
+    {
+      "t": 4403.387292,
+      "message": "generated chunk 88,1"
+    },
+    {
+      "t": 4403.442292,
+      "message": "evicted chunk 80,1"
+    },
+    {
+      "t": 4403.567,
+      "message": "storage load 88,1"
+    },
+    {
+      "t": 4440.907667,
+      "message": "generated chunk 89,1"
+    },
+    {
+      "t": 4440.936417,
+      "message": "evicted chunk 81,1"
+    },
+    {
+      "t": 4441.000583,
+      "message": "storage load 89,1"
+    },
+    {
+      "t": 4477.921042,
+      "message": "generated chunk 90,1"
+    },
+    {
+      "t": 4477.960125,
+      "message": "evicted chunk 82,1"
+    },
+    {
+      "t": 4478.079208,
+      "message": "storage load 90,1"
+    },
+    {
+      "t": 4514.59075,
+      "message": "generated chunk 91,1"
+    },
+    {
+      "t": 4514.6175,
+      "message": "evicted chunk 83,1"
+    },
+    {
+      "t": 4514.680833,
+      "message": "storage load 91,1"
+    },
+    {
+      "t": 4564.896042,
+      "message": "generated chunk 92,1"
+    },
+    {
+      "t": 4564.935875,
+      "message": "evicted chunk 84,1"
+    },
+    {
+      "t": 4565.292875,
+      "message": "storage load 92,1"
+    },
+    {
+      "t": 4642.444958,
+      "message": "generated chunk 93,1"
+    },
+    {
+      "t": 4642.512333,
+      "message": "evicted chunk 85,1"
+    },
+    {
+      "t": 4642.575833,
+      "message": "storage load 93,1"
+    },
+    {
+      "t": 4703.536458,
+      "message": "generated chunk 94,1"
+    },
+    {
+      "t": 4703.56925,
+      "message": "evicted chunk 86,1"
+    },
+    {
+      "t": 4703.637333,
+      "message": "storage load 94,1"
+    },
+    {
+      "t": 4745.687792,
+      "message": "generated chunk 95,1"
+    },
+    {
+      "t": 4745.715417,
+      "message": "evicted chunk 87,1"
+    },
+    {
+      "t": 4745.778,
+      "message": "storage load 95,1"
+    },
+    {
+      "t": 4786.91525,
+      "message": "generated chunk 96,1"
+    },
+    {
+      "t": 4786.94225,
+      "message": "evicted chunk 88,1"
+    },
+    {
+      "t": 4787.00225,
+      "message": "storage load 96,1"
+    },
+    {
+      "t": 4838.105625,
+      "message": "generated chunk 97,1"
+    },
+    {
+      "t": 4838.13775,
+      "message": "evicted chunk 89,1"
+    },
+    {
+      "t": 4838.201958,
+      "message": "storage load 97,1"
+    },
+    {
+      "t": 4876.751083,
+      "message": "generated chunk 98,1"
+    },
+    {
+      "t": 4876.78375,
+      "message": "evicted chunk 90,1"
+    },
+    {
+      "t": 4876.854583,
+      "message": "storage load 98,1"
+    },
+    {
+      "t": 4925.999792,
+      "message": "generated chunk 99,1"
+    },
+    {
+      "t": 4926.029208,
+      "message": "evicted chunk 91,1"
+    },
+    {
+      "t": 4926.092458,
+      "message": "storage load 99,1"
+    },
+    {
+      "t": 4969.322667,
+      "message": "generated chunk 100,1"
+    },
+    {
+      "t": 4969.353083,
+      "message": "evicted chunk 92,1"
+    },
+    {
+      "t": 4969.41975,
+      "message": "storage load 100,1"
+    }
+  ]
+}

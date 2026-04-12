@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streaming WFC Demo</title>
+  <link rel="stylesheet" href="./demo.css" />
+</head>
+<body>
+  <div class="demo-shell">
+    <aside class="panel controls">
+      <h1>Streaming WFC Demo</h1>
+      <p class="lead">Presentation mode follows a stable left-right streaming path: generate chunks ahead, evict chunks behind, then reload the same tiles when you come back.</p>
+
+      <div class="control-grid">
+        <label>
+          Seed
+          <input id="seedInput" type="number" value="20260330" />
+        </label>
+        <label>
+          Chunk Size
+          <input id="chunkSizeInput" type="number" value="10" />
+        </label>
+        <label>
+          Viewport Width
+          <input id="viewportWidthInput" type="number" value="8" />
+        </label>
+        <label>
+          Viewport Height
+          <input id="viewportHeightInput" type="number" value="8" />
+        </label>
+        <label>
+          Memory Limit
+          <input id="memoryLimitInput" type="number" value="8" />
+        </label>
+        <label>
+          Frontier Trigger
+          <input id="frontierInput" type="number" value="2" />
+        </label>
+      </div>
+
+      <div class="button-row">
+        <button id="applyPresetBtn">Apply Demo Preset</button>
+        <button id="resetBtn">Reset Demo</button>
+        <button id="clearStorageBtn">Clear Demo Storage</button>
+      </div>
+
+      <div class="status-card" id="statusText">Loading rules…</div>
+
+      <div class="moves">
+        <button id="leftBtn">◀</button>
+        <button id="rightBtn">▶</button>
+      </div>
+      <p class="hint">Use left/right arrows or A/D. The demo is locked to the horizontal presentation path for stability.</p>
+
+      <div class="stats-grid" id="statsGrid"></div>
+    </aside>
+
+    <main class="panel viewport-panel">
+      <div class="viewport-header">
+        <div>
+          <h2>Live World</h2>
+          <p>The white box is the actual viewport. The outer area shows nearby loaded or queued chunks on the presentation path.</p>
+        </div>
+        <div class="legend">
+          <span><i class="swatch loading"></i> queued</span>
+          <span><i class="swatch storage"></i> reloaded</span>
+        </div>
+      </div>
+      <canvas id="demoCanvas"></canvas>
+    </main>
+
+    <aside class="panel log-panel">
+      <h2>Event Log</h2>
+      <p>For the demo, the important events are: queued, generated, evicted, and storage load.</p>
+      <div class="log-list" id="logList"></div>
+    </aside>
+  </div>
+
+  <script type="module" src="./demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+{
+  "generated_at": "2026-04-10T01:52:05.339Z",
+  "target_generated_chunks": 1000,
+  "demo_config": {
+    "seed": 20260330,
+    "chunk_size": 10,
+    "viewport_width": 8,
+    "viewport_height": 8,
+    "memory_limit_chunks": 8,
+    "frontier_trigger_tiles": 2
+  },
+  "movement": {
+    "total_tile_moves": 24780,
+    "total_recorded_segments": 1009,
+    "unique_player_chunks_visited": 999,
+    "path_strategy": "horizontal march with periodic revisit checkpoints",
+    "sample_segments": [
+      {
+        "from": {
+          "x": 15,
+          "y": 15
+        },
+        "to": {
+          "x": 15,
+          "y": 15
+        },
+        "generatedAfterSegment": 1,
+        "storageLoadsAfterSegment": 0,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 15,
+          "y": 15
+        },
+        "to": {
+          "x": 25,
+          "y": 15
+        },
+        "generatedAfterSegment": 3,
+        "storageLoadsAfterSegment": 1,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 25,
+          "y": 15
+        },
+        "to": {
+          "x": 35,
+          "y": 15
+        },
+        "generatedAfterSegment": 4,
+        "storageLoadsAfterSegment": 2,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 35,
+          "y": 15
+        },
+        "to": {
+          "x": 45,
+          "y": 15
+        },
+        "generatedAfterSegment": 5,
+        "storageLoadsAfterSegment": 3,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 45,
+          "y": 15
+        },
+        "to": {
+          "x": 55,
+          "y": 15
+        },
+        "generatedAfterSegment": 6,
+        "storageLoadsAfterSegment": 4,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 55,
+          "y": 15
+        },
+        "to": {
+          "x": 65,
+          "y": 15
+        },
+        "generatedAfterSegment": 7,
+        "storageLoadsAfterSegment": 5,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 65,
+          "y": 15
+        },
+        "to": {
+          "x": 75,
+          "y": 15
+        },
+        "generatedAfterSegment": 8,
+        "storageLoadsAfterSegment": 6,
+        "evictionsAfterSegment": 0
+      },
+      {
+        "from": {
+          "x": 75,
+          "y": 15
+        },
+        "to": {
+          "x": 85,
+          "y": 15
+        },
+        "generatedAfterSegment": 9,
+        "storageLoadsAfterSegment": 7,
+        "evictionsAfterSegment": 1
+      },
+      {
+        "from": {
+          "x": 85,
+          "y": 15
+        },
+        "to": {
+          "x": 95,
+          "y": 15
+        },
+        "generatedAfterSegment": 10,
+        "storageLoadsAfterSegment": 8,
+        "evictionsAfterSegment": 2
+      },
+      {
+        "from": {
+          "x": 95,
+          "y": 15
+        },
+        "to": {
+          "x": 105,
+          "y": 15
+        },
+        "generatedAfterSegment": 11,
+        "storageLoadsAfterSegment": 9,
+        "evictionsAfterSegment": 3
+      },
+      {
+        "from": {
+          "x": 105,
+          "y": 15
+        },
+        "to": {
+          "x": 115,
+          "y": 15
+        },
+        "generatedAfterSegment": 12,
+        "storageLoadsAfterSegment": 10,
+        "evictionsAfterSegment": 4
+      },
+      {
+        "from": {
+          "x": 115,
+          "y": 15
+        },
+        "to": {
+          "x": 125,
+          "y": 15
+        },
+        "generatedAfterSegment": 13,
+        "storageLoadsAfterSegment": 11,
+        "evictionsAfterSegment": 5
+      }
+    ],
+    "final_player_position": {
+      "x": 9995,
+      "y": 15
+    }
+  },
+  "empirical_time": {
+    "generated_chunks": 1000,
+    "total_solve_time_ms": 37427.47737799994,
+    "avg_per_generated_chunk_ms": 37.427477377999935,
+    "p95_per_generated_chunk_ms": 64.5747080000001,
+    "max_per_generated_chunk_ms": 203.99133299999812,
+    "failed_generations": 0,
+    "generation_records_sample": [
+      {
+        "cx": 1,
+        "cy": 1,
+        "elapsedMs": 100.61958299999998,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3236926071
+      },
+      {
+        "cx": 2,
+        "cy": 1,
+        "elapsedMs": 67.86508399999991,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 812871282
+      },
+      {
+        "cx": 3,
+        "cy": 1,
+        "elapsedMs": 52.00116700000001,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3204844394
+      },
+      {
+        "cx": 4,
+        "cy": 1,
+        "elapsedMs": 44.26099999999997,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1109205819
+      },
+      {
+        "cx": 5,
+        "cy": 1,
+        "elapsedMs": 32.47858300000007,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2672210207
+      },
+      {
+        "cx": 6,
+        "cy": 1,
+        "elapsedMs": 29.614291999999978,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 273914054
+      },
+      {
+        "cx": 7,
+        "cy": 1,
+        "elapsedMs": 35.55266699999993,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1851644386
+      },
+      {
+        "cx": 8,
+        "cy": 1,
+        "elapsedMs": 80.81183399999998,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 429968169
+      },
+      {
+        "cx": 9,
+        "cy": 1,
+        "elapsedMs": 38.24404199999992,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2935189062
+      },
+      {
+        "cx": 10,
+        "cy": 1,
+        "elapsedMs": 37.89874999999995,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1231709082
+      },
+      {
+        "cx": 11,
+        "cy": 1,
+        "elapsedMs": 28.22833300000002,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 1756772760
+      },
+      {
+        "cx": 12,
+        "cy": 1,
+        "elapsedMs": 32.05950000000007,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 4116808089
+      },
+      {
+        "cx": 13,
+        "cy": 1,
+        "elapsedMs": 24.166958000000022,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 3412359718
+      },
+      {
+        "cx": 14,
+        "cy": 1,
+        "elapsedMs": 51.34720900000002,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2197834416
+      },
+      {
+        "cx": 15,
+        "cy": 1,
+        "elapsedMs": 38.149041000000125,
+        "mode": "backtracking",
+        "attempts": 1,
+        "backtracks": 0,
+        "contradictions": 0,
+        "checksum": 2020108173
+      }
+    ]
+  },
+  "empirical_memory": {
+    "current_memory_chunks": 8,
+    "peak_memory_chunks": 9,
+    "peak_queue_length": 2,
+    "total_evictions": 2422,
+    "total_storage_loads": 3858,
+    "approximate_peak_tile_slots": 900,
+    "local_storage_entries": 1000
+  },
+  "correctness": {
+    "seam_violations": 0,
+    "internal_violations": 0,
+    "reload_checks": [
+      {
+        "generatedAtTrigger": 200,
+        "checkpointChunk": "51,1",
+        "checkpointWasStored": true,
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 286,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 400,
+        "checkpointChunk": "251,1",
+        "checkpointWasStored": true,
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 286,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 600,
+        "checkpointChunk": "451,1",
+        "checkpointWasStored": true,
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 286,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 800,
+        "checkpointChunk": "651,1",
+        "checkpointWasStored": true,
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 286,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 1000,
+        "checkpointChunk": "851,1",
+        "checkpointWasStored": true,
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 286,
+        "checksumMatches": true
+      }
+    ],
+    "reload_checks_passed": 5,
+    "reload_checks_failed": 0,
+    "aggregate_reload_matches": 3858,
+    "aggregate_reload_mismatches": 0
+  },
+  "theoretical_complexity": {
+    "per_chunk_boundary_seeding_time": "O(G^2 * T)",
+    "per_chunk_storage_reload_time": "O(G^2)",
+    "per_chunk_worst_case_solver_time": "O(T^(G^2))",
+    "active_memory_space": "O(M * G^2)",
+    "explanation": {
+      "G": "chunk size",
+      "T": "tile alphabet size",
+      "M": "configured in-memory chunk limit"
+    }
+  },
+  "assignment_expectation_notes": {
+    "source_assignments": [
+      "Assignment-1-ADA2026 (1).pdf",
+      "assignment_2 (1).pdf",
+      "ADA2026_Assignment3 (2).pdf"
+    ],
+    "emphasis": [
+      "show all steps clearly",
+      "justify time complexity from structure",
+      "discuss correctness, not just runtime",
+      "connect implementation choices to algorithmic trade-offs"
+    ]
+  },
+  "key_logs_sample": [
+    {
+      "t": 38601.082208,
+      "message": "storage load 981,1"
+    },
+    {
+      "t": 38601.086916,
+      "message": "evicted chunk 973,1"
+    },
+    {
+      "t": 38601.097458,
+      "message": "storage load 981,1"
+    },
+    {
+      "t": 38601.12625,
+      "message": "storage load 982,1"
+    },
+    {
+      "t": 38601.12875,
+      "message": "evicted chunk 974,1"
+    },
+    {
+      "t": 38601.138833,
+      "message": "storage load 982,1"
+    },
+    {
+      "t": 38601.166333,
+      "message": "storage load 983,1"
+    },
+    {
+      "t": 38601.168708,
+      "message": "evicted chunk 975,1"
+    },
+    {
+      "t": 38601.178916,
+      "message": "storage load 983,1"
+    },
+    {
+      "t": 38601.206833,
+      "message": "storage load 984,1"
+    },
+    {
+      "t": 38601.21,
+      "message": "evicted chunk 976,1"
+    },
+    {
+      "t": 38601.22025,
+      "message": "storage load 984,1"
+    },
+    {
+      "t": 38601.253875,
+      "message": "storage load 985,1"
+    },
+    {
+      "t": 38601.256208,
+      "message": "evicted chunk 977,1"
+    },
+    {
+      "t": 38601.346625,
+      "message": "storage load 985,1"
+    },
+    {
+      "t": 38601.383041,
+      "message": "storage load 986,1"
+    },
+    {
+      "t": 38601.385583,
+      "message": "evicted chunk 978,1"
+    },
+    {
+      "t": 38601.395625,
+      "message": "storage load 986,1"
+    },
+    {
+      "t": 38601.422125,
+      "message": "storage load 987,1"
+    },
+    {
+      "t": 38601.424625,
+      "message": "evicted chunk 979,1"
+    },
+    {
+      "t": 38601.434708,
+      "message": "storage load 987,1"
+    },
+    {
+      "t": 38601.465375,
+      "message": "storage load 988,1"
+    },
+    {
+      "t": 38601.467958,
+      "message": "evicted chunk 980,1"
+    },
+    {
+      "t": 38601.47825,
+      "message": "storage load 988,1"
+    },
+    {
+      "t": 38601.506416,
+      "message": "storage load 989,1"
+    },
+    {
+      "t": 38601.508791,
+      "message": "evicted chunk 981,1"
+    },
+    {
+      "t": 38601.519041,
+      "message": "storage load 989,1"
+    },
+    {
+      "t": 38601.548041,
+      "message": "storage load 990,1"
+    },
+    {
+      "t": 38601.550375,
+      "message": "evicted chunk 982,1"
+    },
+    {
+      "t": 38601.560125,
+      "message": "storage load 990,1"
+    },
+    {
+      "t": 38601.598875,
+      "message": "storage load 991,1"
+    },
+    {
+      "t": 38601.601375,
+      "message": "evicted chunk 983,1"
+    },
+    {
+      "t": 38601.611708,
+      "message": "storage load 991,1"
+    },
+    {
+      "t": 38601.638916,
+      "message": "storage load 992,1"
+    },
+    {
+      "t": 38601.641333,
+      "message": "evicted chunk 984,1"
+    },
+    {
+      "t": 38601.65125,
+      "message": "storage load 992,1"
+    },
+    {
+      "t": 38601.678583,
+      "message": "storage load 993,1"
+    },
+    {
+      "t": 38601.681375,
+      "message": "evicted chunk 985,1"
+    },
+    {
+      "t": 38601.691166,
+      "message": "storage load 993,1"
+    },
+    {
+      "t": 38601.717166,
+      "message": "storage load 994,1"
+    },
+    {
+      "t": 38601.7195,
+      "message": "evicted chunk 986,1"
+    },
+    {
+      "t": 38601.729125,
+      "message": "storage load 994,1"
+    },
+    {
+      "t": 38601.757541,
+      "message": "storage load 995,1"
+    },
+    {
+      "t": 38601.760166,
+      "message": "evicted chunk 987,1"
+    },
+    {
+      "t": 38601.770333,
+      "message": "storage load 995,1"
+    },
+    {
+      "t": 38601.796833,
+      "message": "storage load 996,1"
+    },
+    {
+      "t": 38601.799166,
+      "message": "evicted chunk 988,1"
+    },
+    {
+      "t": 38601.809333,
+      "message": "storage load 996,1"
+    },
+    {
+      "t": 38601.83675,
+      "message": "storage load 997,1"
+    },
+    {
+      "t": 38601.839208,
+      "message": "evicted chunk 989,1"
+    },
+    {
+      "t": 38601.92475,
+      "message": "storage load 997,1"
+    },
+    {
+      "t": 38601.975833,
+      "message": "storage load 998,1"
+    },
+    {
+      "t": 38601.979375,
+      "message": "evicted chunk 990,1"
+    },
+    {
+      "t": 38601.990083,
+      "message": "storage load 998,1"
+    },
+    {
+      "t": 38602.017666,
+      "message": "storage load 999,1"
+    },
+    {
+      "t": 38602.020208,
+      "message": "evicted chunk 991,1"
+    },
+    {
+      "t": 38602.030041,
+      "message": "storage load 999,1"
+    },
+    {
+      "t": 38602.056375,
+      "message": "storage load 1000,1"
+    },
+    {
+      "t": 38602.059083,
+      "message": "evicted chunk 992,1"
+    },
+    {
+      "t": 38602.068791,
+      "message": "storage load 1000,1"
+    }
+  ]
+}

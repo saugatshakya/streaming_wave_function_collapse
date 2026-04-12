@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Streaming WFC Terrain</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #050b14; color: #eef2f7; }
+    .layout { display: grid; grid-template-columns: minmax(280px, 340px) minmax(0, 1fr) minmax(260px, 320px); gap: 18px; padding: 18px; max-width: 1800px; margin: 0 auto; }
+    .card { background: linear-gradient(180deg, rgba(18,25,39,.95), rgba(27,37,54,.95)); border: 1px solid rgba(255,255,255,.08); border-radius: 22px; padding: 16px; box-shadow: 0 18px 36px rgba(0,0,0,.25); min-width: 0; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 1.25rem; margin-bottom: 14px; }
+    h2 { font-size: 1rem; margin-bottom: 10px; }
+    .controls { display: grid; gap: 14px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    label { font-size: .88rem; color: #a8b5c7; display: grid; gap: 6px; min-width: 0; }
+    input { background: #07111d; border: 1px solid rgba(255,255,255,.08); color: #eef2f7; border-radius: 12px; padding: 10px 12px; font-size: 1rem; width: 100%; min-width: 0; }
+    button { background: #0a1728; color: #eef2f7; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 11px 12px; font-size: .98rem; cursor: pointer; }
+    button:hover { background: #12233a; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .button-grid .wide { grid-column: 1 / -1; }
+    .muted { color: #9eb0c6; line-height: 1.45; font-size: .93rem; }
+    .status-box { background: #07111d; border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 12px; color: #d6e1f0; font-size: .92rem; }
+    .viewport-wrap { display: grid; gap: 12px; min-width: 0; }
+    #viewportCanvas { width: 100%; height: auto; max-width: 100%; background: #07111d; border-radius: 18px; border: 1px solid rgba(255,255,255,.08); display:block; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-grid > div { background: #07111d; border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 10px; display: grid; gap: 4px; min-width:0; }
+    .stat-grid span { color: #9eb0c6; font-size: .82rem; }
+    .stat-grid strong { font-size: 1.05rem; overflow-wrap:anywhere; }
+    .event-log { background: #07111d; border-radius: 14px; padding: 12px; height: 260px; overflow: auto; display: grid; gap: 8px; font-size: .88rem; color: #d6e1f0; overflow-wrap:anywhere; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; display:block; overflow:auto; }
+    thead, tbody { width:100%; }
+    th, td { padding: 9px 8px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: left; white-space: nowrap; }
+    .moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 170px; margin: 0 auto; }
+    .moves button:nth-child(1) { grid-column: 2; }
+    .moves button:nth-child(2) { grid-column: 1; }
+    .moves button:nth-child(3) { grid-column: 2; }
+    .moves button:nth-child(4) { grid-column: 3; grid-row: 2; }
+    @media (max-width: 1200px) { .layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="card controls">
+      <h1>Streaming WFC Terrain</h1>
+      <div class="grid2">
+        <label>World seed <input id="worldSeed" type="number" value="20260330" /></label>
+        <label>Cache limit <input id="cacheLimit" type="number" value="20" /></label>
+        <label>Chunk size <input id="chunkSize" type="number" value="10" /></label>
+        <label>Viewport width <input id="viewportWidth" type="number" value="8" /></label>
+        <label>Viewport height <input id="viewportHeight" type="number" value="8" /></label>
+      </div>
+      <div class="button-grid">
+        <button id="applyDemoPreset">Apply demo preset</button>
+        <button id="resetWorld">Reset world</button>
+        <button id="clearStorage">Clear persisted</button>
+        <button id="runExperiment" class="wide">Run offline experiments</button>
+      </div>
+      <div class="status-box" id="progressText">Ready.</div>
+      <p class="muted">Demo preset: chunk 10, viewport 8×8, seed 20260330. The live path is optimized for smooth movement, visible chunk generation, memory eviction, and storage reload on revisit.</p>
+      <div class="moves">
+        <button id="moveUp">▲</button>
+        <button id="moveLeft">◀</button>
+        <button id="moveDown">▼</button>
+        <button id="moveRight">▶</button>
+      </div>
+      <p class="muted" id="moveHint" style="text-align:center">WASD / Arrow keys also work.</p>
+    </div>
+
+    <div class="card viewport-wrap">
+      <h1>Streaming viewport</h1>
+      <canvas id="viewportCanvas"></canvas>
+      <p class="muted">White rectangle = actual visible viewport. The outer frame stays fixed. Missing visible chunks are queued immediately; frontier chunks are queued only when movement approaches a boundary.</p>
+      <details>
+        <summary class="muted" style="cursor:pointer;">Optional offline experiment comparison</summary>
+        <table style="margin-top:12px;">
+          <thead>
+            <tr><th>Grid</th><th>Runs</th><th>Backtrack success</th><th>Backtrack avg time</th><th>Backtrack avg attempts</th><th>Backtrack avg backtracks</th><th>Restart success</th><th>Restart avg time</th><th>Restart avg attempts</th></tr>
+          </thead>
+          <tbody id="batchBody"><tr><td colspan="9">Run the offline experiment to populate this table.</td></tr></tbody>
+        </table>
+      </details>
+    </div>
+
+    <div class="card" style="display:grid; gap:16px; align-content:start; min-width:0;">
+      <h1>Live stats</h1>
+      <div id="statsPanel"></div>
+      <h2>Event log</h2>
+      <div id="eventLog" class="event-log"></div>
+    </div>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
