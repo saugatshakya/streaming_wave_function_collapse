@@ -514,15 +514,6 @@ write / load one seed record & $\Theta(1)$ & $\Theta(1)$ & $\Theta(1)$ \\
 
 These are not arbitrary implementation details. They are part of the algorithmic design: the runtime behavior depends on fast lookup, compact state update, and efficient undo.
 
-\subsection*{Course-Requirement Compliance (Algorithm Design and Analysis)}
-This section is intentionally aligned with the course rubric for algorithm design and data structures.
-\begin{enumerate}
-\item \textbf{Non-trivial structure selection.} Hash maps, queues, stacks, sets, and compact arrays are selected by operation profile rather than convenience.
-\item \textbf{Operation-level justification.} Each structure is mapped to target operations (lookup, enqueue/dequeue, propagation bookkeeping, undo replay, and persistence) with expected complexity behavior.
-\item \textbf{Theory-practice linkage.} Data-structure choices are reflected in both asymptotic analysis (Chapter 8) and observed runtime behavior (Chapters 9--10).
-\item \textbf{Evidence-driven claims.} Performance and correctness statements are bounded by canonical experiments rather than undocumented implementation assumptions.
-\end{enumerate}
-
 \paragraph{Hash-based world access.} The active world is keyed by chunk coordinate. Average-case constant-time retrieval is required because rendering, validation, and scheduling all consult nearby chunks frequently.
 
 \paragraph{Array-based wave state.} A fixed tile alphabet makes arrays preferable to pointer-heavy structures. Domains, support counts, and solver worklists are updated at high frequency, so contiguous array storage keeps the bookkeeping simple and inexpensive.
@@ -673,7 +664,7 @@ With bounded active memory and a fixed tileset, the non-search part of this sum 
 Measured runs are consistent with this interpretation. On the controlled 10x10 benchmark, backtracking averaged 1.45 ms and restart averaged 3.22 ms. On 20x20, backtracking averaged 11.78 ms and restart averaged 40.37 ms. In streaming mode, 10x10 averaged 3.20 ms per chunk, while 20x20 rose to 17.46 ms and crossed the 16 ms interactivity threshold. These measurements support the expected growth trend and justify the stop rule used for scaling.
 
 \subsection{Pseudocode-to-Experiment Calibration}
-To make the complexity verification explicit (in the same spirit as Assignment 1), a dedicated calibration sweep was run with controlled backtracking solves only, chunk sizes
+To make the complexity verification explicit, a dedicated calibration sweep was run with controlled backtracking solves only, chunk sizes
 \(G \in \{6,8,10,12,14,16,18,20\}\), and 100 seeded runs per size. This sweep is stored separately from the canonical bundle in
 \texttt{experiments/complexity\_validation\_bundle.json}.
 
@@ -712,14 +703,7 @@ Chunk size \(G\) & Solved-only mean ms & Model \(\hat{T}(G)\) ms & Relative erro
 \label{tab:complexity-calibration}
 \end{table}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.88\textwidth]{fig_time_complexity_validation.png}
-\caption{Per-chunk complexity calibration graph: measured solved-only average runtime versus scaled $O(G^2)$ (worst-case reference), fitted practical $\Theta$ (average-case fit), and scaled $\Omega(G^2)$ (best-case reference) over the evaluated size range.}
-\label{fig:complexity-validation}
-\end{figure}
-
-The interpretation is precise: this is not a proof that runtime is globally cubic. It is a calibrated local model over the tested regime, demonstrating that the pseudocode-derived cost structure matches the measured growth with high fidelity on the evaluated benchmark family.
+The interpretation is precise: the table above and the fitted model provide the comparison between theory and practice. They show that the pseudocode-derived cost structure matches the measured growth closely over the tested regime.
 
 \section{Worst-Case Solver Complexity}
 The solver is a search procedure, not a divide-and-conquer recurrence. If $n$ unresolved cells remain and the effective branching factor is at most $b \le |D|$, then a conservative recurrence is:
@@ -872,10 +856,10 @@ The scenario metrics include:
 Halo is evaluated as a design alternative rather than assumed to be correct by default. The ablation compares $h=0$ and $h=2$ under the same fixed boundary context and reports success rate, latency, backtracks, contradictions, and failure types. This experiment is valuable because it converts a plausible design intuition into a falsifiable claim.
 
 \section{Boundary-Seeding Witness Design}
-The final report includes a deterministic corner case with fixed neighboring tiles in order to validate the argument that direct assignment is unsound while propagator-based restriction is valid. This is not merely an anecdotal example; it is a compact reproducible witness of the design problem that motivated one of the central algorithmic refinements.
+The final report includes a deterministic corner case with fixed neighboring tiles in order to validate the argument that direct assignment is unsound while propagator-based restriction is valid. This is a compact reproducible witness of the design problem that motivated one of the central algorithmic refinements.
 
 \section{Alignment with the Interim Experimental Plan}
-The progress report committed to four final empirical components: a larger solver comparison, a stronger streaming evaluation, a halo study, and an explicit revisit-consistency study. The final package realizes those commitments as follows:
+The experimental plan defined four final empirical components: a larger solver comparison, a stronger streaming evaluation, a halo study, and an explicit revisit-consistency study. The final package realizes those components as follows:
 \begin{itemize}
 \item the promised streaming study is realized as the canonical 1000-chunk four-direction endurance run plus size-based streaming scenarios;
 \item the promised solver study is realized as the 100-run-per-condition controlled comparison;
