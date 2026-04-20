@@ -1,0 +1,2151 @@
+{
+  "generated_at": "2026-04-20T07:22:02.886Z",
+  "experiment": {
+    "type": "1000-chunk configuration matrix",
+    "world_seed": 20260330,
+    "target_generated_chunks": 1000,
+    "configurations": [
+      {
+        "chunkSize": 10,
+        "mode": "restart",
+        "halo": 0
+      },
+      {
+        "chunkSize": 10,
+        "mode": "restart",
+        "halo": 2
+      },
+      {
+        "chunkSize": 10,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      {
+        "chunkSize": 10,
+        "mode": "backtracking",
+        "halo": 2
+      },
+      {
+        "chunkSize": 20,
+        "mode": "restart",
+        "halo": 0
+      },
+      {
+        "chunkSize": 20,
+        "mode": "restart",
+        "halo": 2
+      },
+      {
+        "chunkSize": 20,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      {
+        "chunkSize": 20,
+        "mode": "backtracking",
+        "halo": 2
+      },
+      {
+        "chunkSize": 30,
+        "mode": "restart",
+        "halo": 0
+      },
+      {
+        "chunkSize": 30,
+        "mode": "restart",
+        "halo": 2
+      },
+      {
+        "chunkSize": 30,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      {
+        "chunkSize": 30,
+        "mode": "backtracking",
+        "halo": 2
+      }
+    ],
+    "revisit_validation": "forced-evict then storage-reload with checksum + internal + seam checks",
+    "seed_recompute_validation": "remove stored chunk and regenerate from deterministic seed + boundary constraints"
+  },
+  "aggregate": {
+    "total_configurations": 12,
+    "completed_configurations": 4,
+    "failed_configurations": 8,
+    "revisit_checks_executed": 36,
+    "revisit_checks_passed": 36,
+    "revisit_checks_failed": 0,
+    "wall_time_sec": 116.94594674999999
+  },
+  "results": [
+    {
+      "config": {
+        "chunkSize": 10,
+        "mode": "restart",
+        "halo": 0
+      },
+      "failed": true,
+      "error": "Error: Initial solve failed at 3,2 for restart/h=0/size=10\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:268:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 0.203344375
+    },
+    {
+      "config": {
+        "chunkSize": 10,
+        "mode": "restart",
+        "halo": 2
+      },
+      "generated_at": "2026-04-20T07:20:16.355Z",
+      "summary": {
+        "generated_chunks": 1000,
+        "avg_generation_time_ms": 7.107333605000004,
+        "p95_generation_time_ms": 12.222083000000566,
+        "max_generation_time_ms": 26.948374999999942,
+        "avg_backtracks": 0,
+        "avg_attempts": 1.345,
+        "seam_violations": 0,
+        "internal_violations": 0,
+        "memory_evictions": 1288,
+        "storage_loads": 299,
+        "storage_entries": 1000
+      },
+      "revisit_validation": {
+        "sample_interval_generated": 100,
+        "checks_executed": 9,
+        "checks_passed": 9,
+        "checks_failed": 0,
+        "checks": [
+          {
+            "generatedAtTrigger": 100,
+            "checkpointChunk": "49,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 200,
+            "checkpointChunk": "95,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 300,
+            "checkpointChunk": "138,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 400,
+            "checkpointChunk": "187,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 500,
+            "checkpointChunk": "237,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 600,
+            "checkpointChunk": "286,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 700,
+            "checkpointChunk": "334,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 800,
+            "checkpointChunk": "380,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 900,
+            "checkpointChunk": "426,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          }
+        ]
+      },
+      "seed_recompute_validation": {
+        "sample_target": 40,
+        "checks_executed": 40,
+        "checks_passed": 2,
+        "checks_failed": 38,
+        "checks": [
+          {
+            "checkpointChunk": "1,1",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.3524160000006304
+          },
+          {
+            "checkpointChunk": "11,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.474624999999833
+          },
+          {
+            "checkpointChunk": "27,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 8.53845900000033
+          },
+          {
+            "checkpointChunk": "36,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.401416000000609
+          },
+          {
+            "checkpointChunk": "50,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.094375000000582
+          },
+          {
+            "checkpointChunk": "61,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.113499999999476
+          },
+          {
+            "checkpointChunk": "73,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 6.806999999999789
+          },
+          {
+            "checkpointChunk": "86,5",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "96,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 7.999583000000712
+          },
+          {
+            "checkpointChunk": "110,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 16.10570899999948
+          },
+          {
+            "checkpointChunk": "119,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.91216600000007
+          },
+          {
+            "checkpointChunk": "134,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.7762500000008004
+          },
+          {
+            "checkpointChunk": "138,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 8.134750000001077
+          },
+          {
+            "checkpointChunk": "158,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 21.26037499999984
+          },
+          {
+            "checkpointChunk": "162,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.865250000000742
+          },
+          {
+            "checkpointChunk": "181,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 16.12854200000038
+          },
+          {
+            "checkpointChunk": "186,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 5.052124999998341
+          },
+          {
+            "checkpointChunk": "204,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.7521660000002157
+          },
+          {
+            "checkpointChunk": "211,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.678750000000946
+          },
+          {
+            "checkpointChunk": "227,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.849500000000262
+          },
+          {
+            "checkpointChunk": "236,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 21.229209000000992
+          },
+          {
+            "checkpointChunk": "250,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.66137499999968
+          },
+          {
+            "checkpointChunk": "261,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.344250000000102
+          },
+          {
+            "checkpointChunk": "273,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 5.536291000000347
+          },
+          {
+            "checkpointChunk": "286,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 5.189000000000306
+          },
+          {
+            "checkpointChunk": "296,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.34912500000064
+          },
+          {
+            "checkpointChunk": "310,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.540666999999303
+          },
+          {
+            "checkpointChunk": "319,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.0095409999994445
+          },
+          {
+            "checkpointChunk": "334,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.835000000000946
+          },
+          {
+            "checkpointChunk": "338,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 9.045000000000073
+          },
+          {
+            "checkpointChunk": "358,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.4355410000007396
+          },
+          {
+            "checkpointChunk": "362,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 5.206124999998792
+          },
+          {
+            "checkpointChunk": "381,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 5.503833999999188
+          },
+          {
+            "checkpointChunk": "386,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.685040999998819
+          },
+          {
+            "checkpointChunk": "404,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 6.967124999999214
+          },
+          {
+            "checkpointChunk": "411,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 3.9069579999995767
+          },
+          {
+            "checkpointChunk": "427,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.326833000000988
+          },
+          {
+            "checkpointChunk": "436,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.10004200000003
+          },
+          {
+            "checkpointChunk": "450,2",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "461,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 4.752042000000074
+          }
+        ]
+      },
+      "wall_time_sec": 10.211693
+    },
+    {
+      "config": {
+        "chunkSize": 10,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      "generated_at": "2026-04-20T07:20:17.759Z",
+      "summary": {
+        "generated_chunks": 1000,
+        "avg_generation_time_ms": 1.0555588130000177,
+        "p95_generation_time_ms": 1.4213330000002316,
+        "max_generation_time_ms": 4.582040999999663,
+        "avg_backtracks": 0.072,
+        "avg_attempts": 1,
+        "seam_violations": 0,
+        "internal_violations": 0,
+        "memory_evictions": 1288,
+        "storage_loads": 299,
+        "storage_entries": 1000
+      },
+      "revisit_validation": {
+        "sample_interval_generated": 100,
+        "checks_executed": 9,
+        "checks_passed": 9,
+        "checks_failed": 0,
+        "checks": [
+          {
+            "generatedAtTrigger": 100,
+            "checkpointChunk": "49,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 200,
+            "checkpointChunk": "95,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 300,
+            "checkpointChunk": "138,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 400,
+            "checkpointChunk": "187,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 500,
+            "checkpointChunk": "237,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 600,
+            "checkpointChunk": "286,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 700,
+            "checkpointChunk": "334,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 800,
+            "checkpointChunk": "380,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 900,
+            "checkpointChunk": "426,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          }
+        ]
+      },
+      "seed_recompute_validation": {
+        "sample_target": 40,
+        "checks_executed": 40,
+        "checks_passed": 2,
+        "checks_failed": 38,
+        "checks": [
+          {
+            "checkpointChunk": "1,1",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7882499999996071
+          },
+          {
+            "checkpointChunk": "11,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7269589999996242
+          },
+          {
+            "checkpointChunk": "27,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7182909999992262
+          },
+          {
+            "checkpointChunk": "36,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.862542000000758
+          },
+          {
+            "checkpointChunk": "50,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.62066699999923
+          },
+          {
+            "checkpointChunk": "61,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.918999999999869
+          },
+          {
+            "checkpointChunk": "73,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.749416000000565
+          },
+          {
+            "checkpointChunk": "86,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.188666000000012
+          },
+          {
+            "checkpointChunk": "96,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7868330000001151
+          },
+          {
+            "checkpointChunk": "110,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7752090000012686
+          },
+          {
+            "checkpointChunk": "119,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8166670000009617
+          },
+          {
+            "checkpointChunk": "134,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6535420000000158
+          },
+          {
+            "checkpointChunk": "138,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7792499999995925
+          },
+          {
+            "checkpointChunk": "158,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.5156670000014856
+          },
+          {
+            "checkpointChunk": "162,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.754041000000143
+          },
+          {
+            "checkpointChunk": "181,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6468339999992168
+          },
+          {
+            "checkpointChunk": "186,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8344170000000304
+          },
+          {
+            "checkpointChunk": "204,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.9284170000009908
+          },
+          {
+            "checkpointChunk": "211,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6572080000005371
+          },
+          {
+            "checkpointChunk": "227,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8736250000001746
+          },
+          {
+            "checkpointChunk": "236,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.0080000000016298
+          },
+          {
+            "checkpointChunk": "250,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.521667000000889
+          },
+          {
+            "checkpointChunk": "261,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6547080000000278
+          },
+          {
+            "checkpointChunk": "273,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.676499999999578
+          },
+          {
+            "checkpointChunk": "286,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8100419999991573
+          },
+          {
+            "checkpointChunk": "296,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8527919999996811
+          },
+          {
+            "checkpointChunk": "310,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6944999999996071
+          },
+          {
+            "checkpointChunk": "319,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7504169999992882
+          },
+          {
+            "checkpointChunk": "334,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6670830000002752
+          },
+          {
+            "checkpointChunk": "338,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.757499999999709
+          },
+          {
+            "checkpointChunk": "358,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.5864999999994325
+          },
+          {
+            "checkpointChunk": "362,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6930830000001151
+          },
+          {
+            "checkpointChunk": "381,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7053329999998823
+          },
+          {
+            "checkpointChunk": "386,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8867919999993319
+          },
+          {
+            "checkpointChunk": "404,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7999579999996058
+          },
+          {
+            "checkpointChunk": "411,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.6826670000009472
+          },
+          {
+            "checkpointChunk": "427,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.696457999998529
+          },
+          {
+            "checkpointChunk": "436,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7390830000003916
+          },
+          {
+            "checkpointChunk": "450,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.7241249999988213
+          },
+          {
+            "checkpointChunk": "461,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8037909999984549
+          }
+        ]
+      },
+      "wall_time_sec": 1.4024682499999999
+    },
+    {
+      "config": {
+        "chunkSize": 10,
+        "mode": "backtracking",
+        "halo": 2
+      },
+      "generated_at": "2026-04-20T07:20:21.625Z",
+      "summary": {
+        "generated_chunks": 1000,
+        "avg_generation_time_ms": 2.6483803930000414,
+        "p95_generation_time_ms": 3.407375000000684,
+        "max_generation_time_ms": 28.88850000000093,
+        "avg_backtracks": 2.834,
+        "avg_attempts": 1,
+        "seam_violations": 0,
+        "internal_violations": 0,
+        "memory_evictions": 1288,
+        "storage_loads": 299,
+        "storage_entries": 1000
+      },
+      "revisit_validation": {
+        "sample_interval_generated": 100,
+        "checks_executed": 9,
+        "checks_passed": 9,
+        "checks_failed": 0,
+        "checks": [
+          {
+            "generatedAtTrigger": 100,
+            "checkpointChunk": "49,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 200,
+            "checkpointChunk": "95,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 300,
+            "checkpointChunk": "138,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 400,
+            "checkpointChunk": "187,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 500,
+            "checkpointChunk": "237,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 600,
+            "checkpointChunk": "286,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 700,
+            "checkpointChunk": "334,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 800,
+            "checkpointChunk": "380,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 900,
+            "checkpointChunk": "426,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          }
+        ]
+      },
+      "seed_recompute_validation": {
+        "sample_target": 40,
+        "checks_executed": 40,
+        "checks_passed": 2,
+        "checks_failed": 38,
+        "checks": [
+          {
+            "checkpointChunk": "1,1",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.3788339999991877
+          },
+          {
+            "checkpointChunk": "11,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.3290830000005371
+          },
+          {
+            "checkpointChunk": "27,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.6359579999989364
+          },
+          {
+            "checkpointChunk": "36,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7377500000002328
+          },
+          {
+            "checkpointChunk": "50,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.9937090000003082
+          },
+          {
+            "checkpointChunk": "61,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.4481250000008004
+          },
+          {
+            "checkpointChunk": "73,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.2628330000006827
+          },
+          {
+            "checkpointChunk": "86,5",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "96,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7391669999997248
+          },
+          {
+            "checkpointChunk": "110,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.751458000000639
+          },
+          {
+            "checkpointChunk": "119,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.3007909999996627
+          },
+          {
+            "checkpointChunk": "134,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.5789169999989099
+          },
+          {
+            "checkpointChunk": "138,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.41150000000016
+          },
+          {
+            "checkpointChunk": "158,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.0328749999989668
+          },
+          {
+            "checkpointChunk": "162,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.6744999999991705
+          },
+          {
+            "checkpointChunk": "181,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.3770840000015596
+          },
+          {
+            "checkpointChunk": "186,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7504169999992882
+          },
+          {
+            "checkpointChunk": "204,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7805000000007567
+          },
+          {
+            "checkpointChunk": "211,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.117791999999099
+          },
+          {
+            "checkpointChunk": "227,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7760420000013255
+          },
+          {
+            "checkpointChunk": "236,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.2903750000004948
+          },
+          {
+            "checkpointChunk": "250,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.8467089999994641
+          },
+          {
+            "checkpointChunk": "261,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7165409999997792
+          },
+          {
+            "checkpointChunk": "273,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.6425829999989219
+          },
+          {
+            "checkpointChunk": "286,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7121669999996811
+          },
+          {
+            "checkpointChunk": "296,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7487079999991693
+          },
+          {
+            "checkpointChunk": "310,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.5923750000001746
+          },
+          {
+            "checkpointChunk": "319,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.4629170000007434
+          },
+          {
+            "checkpointChunk": "334,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.4795830000002752
+          },
+          {
+            "checkpointChunk": "338,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 2.629624999999578
+          },
+          {
+            "checkpointChunk": "358,2",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "362,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.652750000001106
+          },
+          {
+            "checkpointChunk": "381,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.6874579999985144
+          },
+          {
+            "checkpointChunk": "386,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.7950829999990674
+          },
+          {
+            "checkpointChunk": "404,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.2464579999996204
+          },
+          {
+            "checkpointChunk": "411,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.5442500000008295
+          },
+          {
+            "checkpointChunk": "427,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.5740000000005239
+          },
+          {
+            "checkpointChunk": "436,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.389208000000508
+          },
+          {
+            "checkpointChunk": "450,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 0.913749999999709
+          },
+          {
+            "checkpointChunk": "461,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 1.4728329999998095
+          }
+        ]
+      },
+      "wall_time_sec": 3.866078834
+    },
+    {
+      "config": {
+        "chunkSize": 20,
+        "mode": "restart",
+        "halo": 0
+      },
+      "failed": true,
+      "error": "Error: Initial solve failed at 2,2 for restart/h=0/size=20\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:268:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 1.4261898329999985
+    },
+    {
+      "config": {
+        "chunkSize": 20,
+        "mode": "restart",
+        "halo": 2
+      },
+      "failed": true,
+      "error": "Error: Initial solve failed at 3,3 for restart/h=2/size=20\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:268:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 2.960947959000001
+    },
+    {
+      "config": {
+        "chunkSize": 20,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      "failed": true,
+      "error": "Error: Solve failed at 154,3 for backtracking/h=0/size=20\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:307:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 9.091462125000001
+    },
+    {
+      "config": {
+        "chunkSize": 20,
+        "mode": "backtracking",
+        "halo": 2
+      },
+      "generated_at": "2026-04-20T07:21:15.848Z",
+      "summary": {
+        "generated_chunks": 1000,
+        "avg_generation_time_ms": 18.663064824000017,
+        "p95_generation_time_ms": 28.83264599999893,
+        "max_generation_time_ms": 168.57066699999996,
+        "avg_backtracks": 36.274,
+        "avg_attempts": 1,
+        "seam_violations": 0,
+        "internal_violations": 0,
+        "memory_evictions": 1390,
+        "storage_loads": 400,
+        "storage_entries": 1000
+      },
+      "revisit_validation": {
+        "sample_interval_generated": 100,
+        "checks_executed": 9,
+        "checks_passed": 9,
+        "checks_failed": 0,
+        "checks": [
+          {
+            "generatedAtTrigger": 100,
+            "checkpointChunk": "49,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 200,
+            "checkpointChunk": "90,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 300,
+            "checkpointChunk": "140,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 400,
+            "checkpointChunk": "190,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 500,
+            "checkpointChunk": "238,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 600,
+            "checkpointChunk": "282,2",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 700,
+            "checkpointChunk": "322,4",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 800,
+            "checkpointChunk": "371,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          },
+          {
+            "generatedAtTrigger": 900,
+            "checkpointChunk": "422,5",
+            "executed": true,
+            "checkpointWasEvicted": true,
+            "wasInMemoryBeforeForcedEvict": true,
+            "storageLoadsAdded": 1,
+            "checksumMatches": true,
+            "internalOk": true,
+            "seamOk": true
+          }
+        ]
+      },
+      "seed_recompute_validation": {
+        "sample_target": 40,
+        "checks_executed": 40,
+        "checks_passed": 3,
+        "checks_failed": 37,
+        "checks": [
+          {
+            "checkpointChunk": "1,1",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.652125000000524
+          },
+          {
+            "checkpointChunk": "11,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 11.438666000001831
+          },
+          {
+            "checkpointChunk": "27,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.86220900000626
+          },
+          {
+            "checkpointChunk": "36,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.800499999997555
+          },
+          {
+            "checkpointChunk": "50,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 9.041792000003625
+          },
+          {
+            "checkpointChunk": "62,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.238666999997804
+          },
+          {
+            "checkpointChunk": "71,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.347417000004498
+          },
+          {
+            "checkpointChunk": "86,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.129625000001397
+          },
+          {
+            "checkpointChunk": "90,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 17.129666999993788
+          },
+          {
+            "checkpointChunk": "110,2",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "114,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.650666999994428
+          },
+          {
+            "checkpointChunk": "132,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 11.800957999992534
+          },
+          {
+            "checkpointChunk": "139,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.996125000005122
+          },
+          {
+            "checkpointChunk": "155,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.263833999997587
+          },
+          {
+            "checkpointChunk": "164,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 11.912458000006154
+          },
+          {
+            "checkpointChunk": "178,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 8.686791999993147
+          },
+          {
+            "checkpointChunk": "189,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.158499999990454
+          },
+          {
+            "checkpointChunk": "200,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.060749999989639
+          },
+          {
+            "checkpointChunk": "214,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 11.411500000001979
+          },
+          {
+            "checkpointChunk": "223,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.588541999997688
+          },
+          {
+            "checkpointChunk": "238,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.433749999996508
+          },
+          {
+            "checkpointChunk": "242,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 11.45116599999892
+          },
+          {
+            "checkpointChunk": "262,2",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "266,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 10.313000000009197
+          },
+          {
+            "checkpointChunk": "283,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.21425000000454
+          },
+          {
+            "checkpointChunk": "294,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.78916699999536
+          },
+          {
+            "checkpointChunk": "304,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.740999999994528
+          },
+          {
+            "checkpointChunk": "318,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.960999999995693
+          },
+          {
+            "checkpointChunk": "322,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": true,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.165041000000201
+          },
+          {
+            "checkpointChunk": "342,2",
+            "executed": true,
+            "regenerated_from_seed": false,
+            "checksum_matches": false,
+            "internalOk": false,
+            "seamOk": false,
+            "recompute_time_ms": null
+          },
+          {
+            "checkpointChunk": "346,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 14.926499999986845
+          },
+          {
+            "checkpointChunk": "365,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.301250000004075
+          },
+          {
+            "checkpointChunk": "370,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.04612499999348
+          },
+          {
+            "checkpointChunk": "388,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.69816699999501
+          },
+          {
+            "checkpointChunk": "395,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.876875000001746
+          },
+          {
+            "checkpointChunk": "410,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 9.628165999994962
+          },
+          {
+            "checkpointChunk": "421,5",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 15.351208000007318
+          },
+          {
+            "checkpointChunk": "431,2",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 13.056540999998106
+          },
+          {
+            "checkpointChunk": "446,3",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 12.565665999994962
+          },
+          {
+            "checkpointChunk": "450,4",
+            "executed": true,
+            "regenerated_from_seed": true,
+            "checksum_matches": false,
+            "internalOk": true,
+            "seamOk": true,
+            "recompute_time_ms": 35.693542000008165
+          }
+        ]
+      },
+      "wall_time_sec": 40.742792292000004
+    },
+    {
+      "config": {
+        "chunkSize": 30,
+        "mode": "restart",
+        "halo": 0
+      },
+      "failed": true,
+      "error": "Error: Initial solve failed at 3,2 for restart/h=0/size=30\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:268:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 6.6712850419999885
+    },
+    {
+      "config": {
+        "chunkSize": 30,
+        "mode": "restart",
+        "halo": 2
+      },
+      "failed": true,
+      "error": "Error: Initial solve failed at 1,2 for restart/h=2/size=30\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:268:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 16.48088608299999
+    },
+    {
+      "config": {
+        "chunkSize": 30,
+        "mode": "backtracking",
+        "halo": 0
+      },
+      "failed": true,
+      "error": "Error: Solve failed at 26,4 for backtracking/h=0/size=30\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:307:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 8.445738499999992
+    },
+    {
+      "config": {
+        "chunkSize": 30,
+        "mode": "backtracking",
+        "halo": 2
+      },
+      "failed": true,
+      "error": "Error: Solve failed at 42,3 for backtracking/h=2/size=30\n    at runSingleConfig (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:307:15)\n    at main (file:///Users/saugatshakya/Projects/Algorithms/Project/streaming_wfc_v14_1_progress_ready/experiments/run_endurance_config_matrix.mjs:397:32)",
+      "wall_time_sec": 15.437976416999998
+    }
+  ]
+}

@@ -29,6 +29,7 @@ function cloneState(state) {
     wave: state.wave.map(row => row.slice()),
     compatible: state.compatible.map(cell => cell.map(counts => counts.slice())),
     counts: state.counts.slice(),
+    lastContradictionIndex: state.lastContradictionIndex,
   };
 }
 
@@ -49,7 +50,17 @@ function createState(width, height, rules) {
       ];
     }
   }
-  return { width, height, T: rules.tileCount, propagator: rules.propagator, weights: rules.weights, wave, compatible, counts };
+  return {
+    width,
+    height,
+    T: rules.tileCount,
+    propagator: rules.propagator,
+    weights: rules.weights,
+    wave,
+    compatible,
+    counts,
+    lastContradictionIndex: null,
+  };
 }
 
 function recordCompatibleChange(changes, index, tile, dir, prev) {
@@ -71,6 +82,7 @@ function ban(state, index, tile, stack, changes) {
   state.wave[index][tile] = false;
   state.counts[index] -= 1;
   stack.push([index, tile]);
+  if (state.counts[index] <= 0) state.lastContradictionIndex = index;
   return state.counts[index] > 0;
 }
 
@@ -121,6 +133,10 @@ function chooseCell(state, random) {
   let best = -1;
   let bestEntropy = Infinity;
   for (let i = 0; i < state.wave.length; i++) {
+    if (state.counts[i] === 0) {
+      state.lastContradictionIndex = i;
+      return -2;
+    }
     if (state.counts[i] <= 1) continue;
     const entropy = computeEntropy(state.wave[i], state.weights) + random() * 1e-6;
     if (entropy < bestEntropy) {
@@ -183,7 +199,16 @@ function undoChanges(state, changes) {
 const TIMEOUT = Symbol('timeout');
 
 function solveByBacktracking(baseState, seed, maxTimeMs = Number.POSITIVE_INFINITY) {
-  const metrics = { mode: 'backtracking', timeMs: 0, attempts: 1, backtracks: 0, observations: 0, contradictions: 0, timedOut: false };
+  const metrics = {
+    mode: 'backtracking',
+    timeMs: 0,
+    attempts: 1,
+    backtracks: 0,
+    observations: 0,
+    contradictions: 0,
+    timedOut: false,
+    lastContradictionIndex: null,
+  };
   const start = performance.now();
   const deadline = start + maxTimeMs;
 
@@ -191,6 +216,11 @@ function solveByBacktracking(baseState, seed, maxTimeMs = Number.POSITIVE_INFINI
     if (performance.now() > deadline) return TIMEOUT;
     const pickRandom = mulberry32((seed + depth * 2654435761) >>> 0);
     const cell = chooseCell(state, pickRandom);
+    if (cell === -2) {
+      metrics.contradictions += 1;
+      metrics.lastContradictionIndex = state.lastContradictionIndex;
+      return null;
+    }
     if (cell === -1) return state;
     metrics.observations += 1;
     const options = orderedOptions(state, cell, pickRandom);
@@ -199,6 +229,7 @@ function solveByBacktracking(baseState, seed, maxTimeMs = Number.POSITIVE_INFINI
       if (!changes) {
         metrics.backtracks += 1;
         metrics.contradictions += 1;
+        metrics.lastContradictionIndex = state.lastContradictionIndex ?? cell;
         continue;
       }
       const solved = dfs(state, depth + 1);
@@ -223,7 +254,16 @@ function solveByBacktracking(baseState, seed, maxTimeMs = Number.POSITIVE_INFINI
 function solveByRestart(baseState, seed, maxRestarts = 50, maxTimeMs = Number.POSITIVE_INFINITY) {
   const start = performance.now();
   const deadline = start + maxTimeMs;
-  const metrics = { mode: 'restart', timeMs: 0, attempts: 0, backtracks: 0, observations: 0, contradictions: 0, timedOut: false };
+  const metrics = {
+    mode: 'restart',
+    timeMs: 0,
+    attempts: 0,
+    backtracks: 0,
+    observations: 0,
+    contradictions: 0,
+    timedOut: false,
+    lastContradictionIndex: null,
+  };
   for (let attempt = 0; attempt < maxRestarts; attempt++) {
     if (performance.now() > deadline) {
       metrics.timedOut = true;
@@ -234,6 +274,11 @@ function solveByRestart(baseState, seed, maxRestarts = 50, maxTimeMs = Number.PO
     const random = mulberry32((seed + attempt * 2246822519) >>> 0);
     while (true) {
       const cell = chooseCell(state, random);
+      if (cell === -2) {
+        metrics.contradictions += 1;
+        metrics.lastContradictionIndex = state.lastContradictionIndex;
+        break;
+      }
       if (cell === -1) {
         metrics.timeMs = performance.now() - start;
         return { state, metrics };
@@ -245,6 +290,7 @@ function solveByRestart(baseState, seed, maxRestarts = 50, maxTimeMs = Number.PO
       const changes = collapseToTile(next, cell, chosen);
       if (!changes) {
         metrics.contradictions += 1;
+        metrics.lastContradictionIndex = next.lastContradictionIndex ?? cell;
         break;
       }
       state = next;
@@ -269,19 +315,45 @@ export class WFCSolver {
   solve() {
     const state = createState(this.width, this.height, this.rules);
     if (!applySeededCells(state, this.seededCells)) {
+      const contradictionIndex = Number.isInteger(state.lastContradictionIndex) ? state.lastContradictionIndex : null;
       return {
         grid: null,
-        metrics: { mode: this.mode, timeMs: 0, attempts: this.mode === 'restart' ? this.maxRestarts : 1, backtracks: 0, observations: 0, contradictions: 1, timedOut: false },
+        metrics: {
+          mode: this.mode,
+          timeMs: 0,
+          attempts: this.mode === 'restart' ? this.maxRestarts : 1,
+          backtracks: 0,
+          observations: 0,
+          contradictions: 1,
+          timedOut: false,
+          lastContradictionIndex: contradictionIndex,
+          contradictionCell: contradictionIndex === null
+            ? null
+            : { index: contradictionIndex, x: contradictionIndex % this.width, y: Math.floor(contradictionIndex / this.width) },
+        },
       };
     }
     const result = this.mode === 'restart'
       ? solveByRestart(state, this.seed, this.maxRestarts, this.maxTimeMs)
       : solveByBacktracking(state, this.seed, this.maxTimeMs);
+    const grid = result.state ? result.state.wave.map(cell => cell.findIndex(Boolean)) : null;
+    const validGrid = grid && grid.every(tile => tile >= 0);
+    if (grid && !validGrid) {
+      result.metrics.contradictions += 1;
+    }
+    const contradictionIndex = Number.isInteger(result.metrics.lastContradictionIndex)
+      ? result.metrics.lastContradictionIndex
+      : null;
     return {
-      grid: result.state ? result.state.wave.map(cell => cell.findIndex(Boolean)) : null,
+      grid: validGrid ? grid : null,
       width: this.width,
       height: this.height,
-      metrics: result.metrics,
+      metrics: {
+        ...result.metrics,
+        contradictionCell: contradictionIndex === null
+          ? null
+          : { index: contradictionIndex, x: contradictionIndex % this.width, y: Math.floor(contradictionIndex / this.width) },
+      },
     };
   }
 }

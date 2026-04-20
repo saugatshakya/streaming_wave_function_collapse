@@ -1,0 +1,36 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts
+main.pdf
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+missfont.log
+
+# Local editor / environment noise
+.vscode/
+.idea/
+
+# Private prep material (do not submit)
+report/private_slides/
+report/figure_preflight.html
+report/figure_preflight.css
+report/figure_preflight.js
+
+# Non-submission working folders
+archive/
+temp/
+dist/
+.tmp_pdf_env/
+
+# Local copies of proposal/progress docs
+proposal.pdf
+progress_report.pdf

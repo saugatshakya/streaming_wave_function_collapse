@@ -46,6 +46,7 @@ const CHECKPOINT_INTERVAL = Number(process.env.DEMO_CHECKPOINT ?? 200);
 const SETTLE_MAX_TICKS = Number(process.env.DEMO_SETTLE_MAX_TICKS ?? 4000);
 const HALO = Number(process.env.DEMO_HALO ?? 2);
 const SOLVER_MAX_TIME_MS = Number(process.env.DEMO_SOLVER_MAX_TIME_MS ?? 180);
+const VERBOSE_TARGETS = process.env.DEMO_VERBOSE_TARGETS === '1';
 const OUTPUT_PATH = path.resolve(
   process.cwd(),
   'experiments',
@@ -77,27 +78,26 @@ function chunkCenter(chunkSize, cx, cy) {
   return { x: cx * chunkSize + half, y: cy * chunkSize + half };
 }
 
-function* spiralChunkTargets(startCx, startCy) {
+function* driftingFourDirectionTargets(startCx, startCy) {
   let cx = startCx;
   let cy = startCy;
   yield { cx, cy };
-  let stepLength = 1;
-  const dirs = [
-    [1, 0],
-    [0, 1],
-    [-1, 0],
-    [0, -1],
-  ];
-
   while (true) {
-    for (let dirIndex = 0; dirIndex < dirs.length; dirIndex++) {
-      const [dx, dy] = dirs[dirIndex];
-      for (let i = 0; i < stepLength; i++) {
-        cx += dx;
-        cy += dy;
-        yield { cx, cy };
-      }
-      if (dirIndex % 2 === 1) stepLength += 1;
+    for (let i = 0; i < 12; i++) {
+      cx += 1;
+      yield { cx, cy };
+    }
+    for (let i = 0; i < 3; i++) {
+      cy += 1;
+      yield { cx, cy };
+    }
+    for (let i = 0; i < 4; i++) {
+      cx -= 1;
+      yield { cx, cy };
+    }
+    for (let i = 0; i < 3; i++) {
+      cy -= 1;
+      yield { cx, cy };
     }
   }
 }
@@ -209,7 +209,7 @@ async function main() {
     const playerChunk = world.chunkCoordsForTile(world.player.x, world.player.y);
     uniqueVisitedChunks.add(world.key(playerChunk.cx, playerChunk.cy));
     advanceFrames(2);
-    if (world.queue.length > 12 || world.activeJob || world.visibleMissingRegion()) {
+    if (world.queue.length > 24) {
       advanceUntilIdle();
     }
   }
@@ -223,6 +223,7 @@ async function main() {
 
   function runRevisitCheck() {
     const generatedChunks = stats.summary().generatedChunks;
+    if (checkpointThreshold >= TARGET_GENERATED) return;
     if (generatedChunks < checkpointThreshold) return;
     const generatedOnly = stats.generated.filter(record => record.loadSource === 'generated');
     const targetRecord = generatedOnly[Math.max(0, checkpointThreshold - 150)];
@@ -254,10 +255,17 @@ async function main() {
 
   advanceUntilIdle();
   const startChunk = world.chunkCoordsForTile(world.player.x, world.player.y);
-  const targets = spiralChunkTargets(startChunk.cx, startChunk.cy);
+  const targets = driftingFourDirectionTargets(startChunk.cx, startChunk.cy);
 
   for (const target of targets) {
     if (stats.summary().generatedChunks >= TARGET_GENERATED) break;
+    if (VERBOSE_TARGETS) {
+      console.log(JSON.stringify({
+        target_chunk: target,
+        generated_before_target: stats.summary().generatedChunks,
+        player_before_target: world.player,
+      }));
+    }
     const pos = chunkCenter(world.chunkSize, target.cx, target.cy);
     moveTo(pos.x, pos.y);
     const generatedChunks = stats.summary().generatedChunks;
@@ -281,7 +289,16 @@ async function main() {
     throw new Error(`Only generated ${summary.generatedChunks} chunks before path exhaustion.`);
   }
 
-  const times = stats.generated.filter(record => record.loadSource === 'generated').map(record => record.timeMs);
+  const generatedRecords = stats.generated.filter(record => record.loadSource === 'generated');
+  const times = generatedRecords.map(record => record.timeMs);
+  const solverModeCounts = generatedRecords.reduce((acc, record) => {
+    const mode = record.mode || 'unknown';
+    acc[mode] = (acc[mode] || 0) + 1;
+    return acc;
+  }, {});
+  const totalAttempts = generatedRecords.reduce((sum, record) => sum + (record.attempts || 0), 0);
+  const totalBacktracks = generatedRecords.reduce((sum, record) => sum + (record.backtracks || 0), 0);
+  const chunksWithMultipleAttempts = generatedRecords.filter(record => (record.attempts || 0) > 1).length;
   const result = {
     generated_at: new Date().toISOString(),
     demo_config: {
@@ -295,7 +312,7 @@ async function main() {
       restart_fallback: world.allowFallbackRestart,
     },
     movement: {
-      path_strategy: 'outward square spiral with periodic revisits',
+      path_strategy: 'forward drifting 4-direction path with periodic revisits',
       total_tile_moves: movementSteps,
       total_segments: movementSegments,
       unique_player_chunks_visited: uniqueVisitedChunks.size,
@@ -309,6 +326,17 @@ async function main() {
       avg_backtracks: summary.avgBacktracks,
       avg_attempts: summary.avgAttempts,
       total_generated_time_ms: times.reduce((sum, value) => sum + value, 0),
+    },
+    solver_activity: {
+      generated_mode_counts: solverModeCounts,
+      total_attempts: totalAttempts,
+      total_backtracks: totalBacktracks,
+      chunks_with_multiple_attempts: chunksWithMultipleAttempts,
+      backtracking_mode_chunks: solverModeCounts.backtracking || 0,
+      restart_mode_chunks: solverModeCounts.restart || 0,
+      structured_fallback_chunks: solverModeCounts['structured-fallback'] || 0,
+      simple_fallback_chunks: solverModeCounts['simple-fallback'] || 0,
+      unknown_mode_chunks: solverModeCounts.unknown || 0,
     },
     empirical_memory: {
       current_memory_chunks: world.memory.size,

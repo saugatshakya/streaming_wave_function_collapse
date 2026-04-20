@@ -1,6 +1,24 @@
 import { hashCoords } from './rng.js';
 import { WFCSolver } from './solver.js';
 import { validateChunkAgainstNeighbors, validateChunkInternal } from './validators.js';
+import { getAdaptivePolicy, STORAGE_VERSION, DEFAULT_OUTER_PADDING_TILES, PROD_STORAGE_PREFIX } from './CONFIG.js';
+import {
+  chunkKey,
+  chunkCoordsForTile as coordsForTile,
+  buildStorageKey,
+  loadChunkFromStorage as loadFromStorage,
+  saveChunkToStorage as saveToStorage,
+  touchMemoryLRU,
+  tileAtCoords,
+  calculateVisibleChunkRange,
+  chunkDistance,
+  directionFromDelta,
+  localCoordsInChunk,
+  isInRegion,
+} from './worldCommon.js';
+
+const DX = [1, 0, -1, 0];
+const DY = [0, 1, 0, -1];
 
 export class WorldManager {
   constructor({
@@ -27,6 +45,7 @@ export class WorldManager {
     this.demoMode = demoMode;
     this.allowFallbackRestart = allowFallbackRestart;
     this.fallbackMaxRestarts = fallbackMaxRestarts;
+    this.seedRetryCount = demoMode ? 12 : 4;
     this.player = { x: 0, y: 0 };
     this.activeDirection = null;
     this.memory = new Map();
@@ -34,50 +53,29 @@ export class WorldManager {
     this.activeJob = null;
     this.solvePreviewMs = 120;
     this.revealDurationMs = 220;
-    this.storageVersion = 'clean-v13-final';
     this.halo = 2;
     this.disableStorageReads = false;
     this.logFn = null;
     this.maxObservedQueue = 0;
     this.maxObservedMemory = 0;
     this.computeAdaptivePolicy();
-    this.storagePrefix = `streaming-wfc:${this.storageVersion}:${this.worldSeed}:chunk${this.chunkSize}:view${this.viewportWidth}x${this.viewportHeight}:`;
+    this.storagePrefix = `${PROD_STORAGE_PREFIX}${STORAGE_VERSION}:${this.worldSeed}:chunk${this.chunkSize}:view${this.viewportWidth}x${this.viewportHeight}:`;
   }
 
   computeAdaptivePolicy() {
     const maxViewport = Math.max(this.viewportWidth, this.viewportHeight);
-    const halfViewport = Math.ceil(maxViewport / 2);
-    this.outerPaddingTiles = Math.max(4, halfViewport + 2);
-
-    if (this.chunkSize <= 10) {
-      this.frontierDistance = Math.max(3, halfViewport + 1);
-      this.memoryKeepRadius = 1;
-      this.memoryChunkLimit = Math.min(this.cacheLimit, 20);
-      this.solvePreviewMs = this.demoMode ? 18 : 80;
-      this.revealDurationMs = this.demoMode ? 60 : 160;
-    } else if (this.chunkSize <= 20) {
-      this.frontierDistance = Math.max(3, halfViewport + 1);
-      this.memoryKeepRadius = 0;
-      this.memoryChunkLimit = Math.min(this.cacheLimit, 8);
-      this.solvePreviewMs = this.demoMode ? 18 : 70;
-      this.revealDurationMs = this.demoMode ? 60 : 140;
-    } else {
-      this.frontierDistance = Math.max(2, halfViewport);
-      this.memoryKeepRadius = 0;
-      this.memoryChunkLimit = Math.min(this.cacheLimit, 4);
-      this.solvePreviewMs = this.demoMode ? 18 : 60;
-      this.revealDurationMs = this.demoMode ? 60 : 120;
-    }
+    const policy = getAdaptivePolicy(this.chunkSize, maxViewport, this.demoMode, this.cacheLimit);
+    Object.assign(this, policy);
   }
 
-  key(cx, cy) { return `${cx},${cy}`; }
+  key(cx, cy) { return chunkKey(cx, cy); }
   setLogger(fn) { this.logFn = fn; }
   log(msg) { if (this.logFn) this.logFn(msg); }
   setPlayerStart(x, y) { this.player = { x, y }; }
   solverMode() { return 'backtracking'; }
 
   chunkCoordsForTile(x, y) {
-    return { cx: Math.floor(x / this.chunkSize), cy: Math.floor(y / this.chunkSize) };
+    return coordsForTile(this.chunkSize, x, y);
   }
 
   viewportBounds() {
@@ -99,37 +97,24 @@ export class WorldManager {
     return { x: viewport.startX - pad, y: viewport.startY - pad, width, height, viewport, margin: { left: pad, right: pad, top: pad, bottom: pad } };
   }
 
-  storageKey(cx, cy) { return `${this.storagePrefix}${cx},${cy}`; }
+  storageKey(cx, cy) { return buildStorageKey(this.storagePrefix, cx, cy); }
 
   getFromStorage(cx, cy) {
-    if (this.disableStorageReads || typeof localStorage === 'undefined') return null;
-    try {
-      const raw = localStorage.getItem(this.storageKey(cx, cy));
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || parsed.size !== this.chunkSize) return null;
-      if (!Array.isArray(parsed.grid) || parsed.grid.length !== this.chunkSize * this.chunkSize) return null;
-      return parsed;
-    } catch {
-      return null;
-    }
+    if (this.disableStorageReads) return null;
+    return loadFromStorage(
+      this.storageKey(cx, cy),
+      (parsed) => parsed && parsed.size === this.chunkSize && 
+                   Array.isArray(parsed.grid) && parsed.grid.length === this.chunkSize * this.chunkSize
+    );
   }
 
   saveToStorage(chunk) {
-    if (typeof localStorage === 'undefined') return;
-    localStorage.setItem(this.storageKey(chunk.cx, chunk.cy), JSON.stringify({
-      cx: chunk.cx,
-      cy: chunk.cy,
-      grid: chunk.grid,
-      seed: chunk.seed,
-      size: chunk.size,
-    }));
+    saveToStorage(this.storageKey(chunk.cx, chunk.cy), chunk);
   }
 
   touchMemory(chunk) {
     const k = this.key(chunk.cx, chunk.cy);
-    if (this.memory.has(k)) this.memory.delete(k);
-    this.memory.set(k, chunk);
+    touchMemoryLRU(this.memory, k, chunk);
     this.maxObservedMemory = Math.max(this.maxObservedMemory, this.memory.size);
   }
 
@@ -140,8 +125,29 @@ export class WorldManager {
     const stored = this.getFromStorage(cx, cy);
     if (stored?.grid) {
       const chunk = { ...stored, state: 'ready', loadSource: 'storage', size: this.chunkSize, revealProgress: 1 };
+
+      const neighborFromMemory = (nx, ny) => {
+        const nk = this.key(nx, ny);
+        const candidate = this.memory.get(nk);
+        if (candidate && ['ready', 'animating'].includes(candidate.state) && candidate.grid) return candidate;
+        return null;
+      };
+      const neighbors = {
+        left: neighborFromMemory(cx - 1, cy),
+        right: neighborFromMemory(cx + 1, cy),
+        top: neighborFromMemory(cx, cy - 1),
+        bottom: neighborFromMemory(cx, cy + 1),
+      };
+      const internal = validateChunkInternal(chunk.grid, this.chunkSize, this.rules);
+      const seam = validateChunkAgainstNeighbors(chunk, neighbors, this.rules);
+      if (!internal.ok || !seam.ok) {
+        try { localStorage.removeItem(this.storageKey(cx, cy)); } catch {}
+        this.log(`storage reject ${cx},${cy} internal=${internal.ok} seam=${seam.ok}`);
+        return null;
+      }
+
       this.touchMemory(chunk);
-      this.stats.recordChunk({ cx, cy, seed: chunk.seed, loadSource: 'storage', timeMs: 0, backtracks: 0, attempts: 0, internalOk: true, seamOk: true });
+      this.stats.recordChunk({ cx, cy, seed: chunk.seed, loadSource: 'storage', timeMs: 0, backtracks: 0, attempts: 0, internalOk: internal.ok, seamOk: seam.ok });
       this.log(`storage load ${cx},${cy}`);
       return chunk;
     }
@@ -274,13 +280,13 @@ export class WorldManager {
     this.maxObservedQueue = Math.max(this.maxObservedQueue, this.queue.length);
   }
 
-  solveRegionOnce(region, mode = 'backtracking') {
+  solveRegionOnce(region, mode = 'backtracking', seedSalt = 0) {
     const { minCx, maxCx, minCy, maxCy, policy } = region;
     const spec = this.buildHaloSpec(minCx, maxCx, minCy, maxCy);
     const { seeded, counts, solveWidth, solveHeight, halo } = spec;
     const seededCount = seeded.size;
-    const seed = hashCoords(this.worldSeed, minCx, minCy, hashCoords(maxCx, maxCy, 911));
-    this.log(`solve start region ${minCx}:${maxCx},${minCy}:${maxCy} mode=${mode} policy=${policy} halo=${halo} seeded=${seededCount} counts=${JSON.stringify(counts)}`);
+    const seed = hashCoords(this.worldSeed, minCx, minCy, hashCoords(maxCx, maxCy, 911 + seedSalt * 131));
+    this.log(`solve start region ${minCx}:${maxCx},${minCy}:${maxCy} mode=${mode} policy=${policy} halo=${halo} seeded=${seededCount} retry=${seedSalt + 1}/${this.seedRetryCount} counts=${JSON.stringify(counts)}`);
 
     let solved = null;
     let metrics = null;
@@ -359,9 +365,11 @@ export class WorldManager {
         cy: chunk.cy,
         seed: chunk.seed,
         loadSource: 'generated',
+        mode: metrics.mode,
         timeMs: chunk.metrics.timeMs,
         backtracks: metrics.backtracks,
         attempts: metrics.attempts,
+        contradictions: metrics.contradictions,
         internalOk: chunk.internalValidation.ok,
         seamOk: chunk.seamValidation.ok,
       });
@@ -395,8 +403,10 @@ export class WorldManager {
 
   solveRegion(region, mode = this.solverMode()) {
     for (const candidate of this.fallbackRegions(region)) {
-      const solved = this.solveRegionOnce(candidate, mode);
-      if (solved) return solved;
+      for (let retry = 0; retry < this.seedRetryCount; retry++) {
+        const solved = this.solveRegionOnce(candidate, mode, retry);
+        if (solved) return solved;
+      }
     }
     return null;
   }
@@ -588,6 +598,223 @@ export class WorldManager {
     }
   }
 
+  fallbackCellOptions(cx, cy, x, y, grid) {
+    const size = this.chunkSize;
+    const worldX = cx * size + x;
+    const worldY = cy * size + y;
+    const options = [];
+
+    for (let tile = 0; tile < this.rules.tileCount; tile++) {
+      let ok = true;
+      for (let d = 0; d < 4; d++) {
+        const nx = x + DX[d];
+        const ny = y + DY[d];
+        if (nx >= 0 && ny >= 0 && nx < size && ny < size) {
+          const neighborIndex = nx + ny * size;
+          const neighborTile = grid[neighborIndex];
+          if (neighborTile !== -1 && !this.rules.propagator[d][tile].includes(neighborTile)) {
+            ok = false;
+            break;
+          }
+        } else {
+          const committed = this.tileAtWorld(worldX + DX[d], worldY + DY[d]);
+          if (committed !== null && committed !== undefined && !this.rules.propagator[d][tile].includes(committed)) {
+            ok = false;
+            break;
+          }
+        }
+      }
+      if (ok) options.push(tile);
+    }
+
+    const tieSeed = hashCoords(this.worldSeed, worldX, worldY, 131);
+    options.sort((a, b) => {
+      const dw = this.rules.weights[b] - this.rules.weights[a];
+      if (dw !== 0) return dw;
+      return (a ^ tieSeed) - (b ^ tieSeed);
+    });
+    return options;
+  }
+
+  completeFallbackGrid(cx, cy, grid, deadline) {
+    const size = this.chunkSize;
+    let patchedTiles = 0;
+    while (true) {
+      if (performance.now() > deadline) return null;
+      let bestIndex = -1;
+      let bestOptions = null;
+      for (let index = 0; index < grid.length; index++) {
+        if (grid[index] !== -1) continue;
+        const x = index % size;
+        const y = Math.floor(index / size);
+        const options = this.fallbackCellOptions(cx, cy, x, y, grid);
+        if (options.length === 0) return null;
+        if (!bestOptions || options.length < bestOptions.length) {
+          bestIndex = index;
+          bestOptions = options;
+          if (options.length === 1) break;
+        }
+      }
+      if (bestIndex === -1) return { grid, patchedTiles };
+      grid[bestIndex] = bestOptions[0];
+      patchedTiles += 1;
+    }
+  }
+
+  validateFallbackChunk(chunk) {
+    const neighbors = {
+      left: this.getReadyChunk(chunk.cx - 1, chunk.cy),
+      right: this.getReadyChunk(chunk.cx + 1, chunk.cy),
+      top: this.getReadyChunk(chunk.cx, chunk.cy - 1),
+      bottom: this.getReadyChunk(chunk.cx, chunk.cy + 1),
+    };
+    const internal = validateChunkInternal(chunk.grid, this.chunkSize, this.rules);
+    const seam = validateChunkAgainstNeighbors(chunk, neighbors, this.rules);
+    return { ok: internal.ok && seam.ok, internal, seam };
+  }
+
+  makeFallbackChunk(cx, cy, grid, mode, extra = {}) {
+    return {
+      cx,
+      cy,
+      size: this.chunkSize,
+      seed: hashCoords(this.worldSeed, cx, cy, 17),
+      grid,
+      state: 'ready',
+      loadSource: 'generated',
+      revealProgress: 1,
+      metrics: {
+        mode,
+        attempts: 1,
+        backtracks: extra.backtracks || 0,
+        contradictions: extra.contradictions || 0,
+        timeMs: extra.timeMs || 0,
+      },
+    };
+  }
+
+  generateMinimalFallbackChunk(cx, cy) {
+    const size = this.chunkSize;
+    const grid = new Array(size * size).fill(-1);
+    const start = performance.now();
+    const budget = Number.isFinite(this.solverMaxTimeMs) ? Math.max(120, this.solverMaxTimeMs) : 220;
+    const deadline = start + budget;
+    let backtracks = 0;
+    let bestFilled = 0;
+    let bestGrid = grid.slice();
+
+    const updateBest = (filledCount) => {
+      if (filledCount > bestFilled) {
+        bestFilled = filledCount;
+        bestGrid = grid.slice();
+      }
+    };
+
+    const search = (filledCount = 0) => {
+      if (performance.now() > deadline) return false;
+      updateBest(filledCount);
+      let bestIndex = -1;
+      let bestOptions = null;
+      for (let index = 0; index < grid.length; index++) {
+        if (grid[index] !== -1) continue;
+        const x = index % size;
+        const y = Math.floor(index / size);
+        const options = this.fallbackCellOptions(cx, cy, x, y, grid);
+        if (options.length === 0) return false;
+        if (!bestOptions || options.length < bestOptions.length) {
+          bestIndex = index;
+          bestOptions = options;
+          if (options.length === 1) break;
+        }
+      }
+      if (bestIndex === -1) return true;
+      for (const tile of bestOptions) {
+        grid[bestIndex] = tile;
+        if (search(filledCount + 1)) return true;
+        grid[bestIndex] = -1;
+        backtracks += 1;
+      }
+      return false;
+    };
+
+    if (search(0)) {
+      const chunk = this.makeFallbackChunk(cx, cy, grid.slice(), 'minimal-tile-fallback', {
+        backtracks,
+        contradictions: backtracks,
+        timeMs: performance.now() - start,
+      });
+      const valid = this.validateFallbackChunk(chunk);
+      if (valid.ok) return chunk;
+    }
+
+    if (bestFilled > 0) {
+      const partial = bestGrid.slice();
+      const patched = this.completeFallbackGrid(cx, cy, partial, deadline);
+      if (patched) {
+        const chunk = this.makeFallbackChunk(cx, cy, patched.grid.slice(), 'minimal-tile-fallback', {
+          backtracks,
+          contradictions: backtracks,
+          timeMs: performance.now() - start,
+        });
+        const valid = this.validateFallbackChunk(chunk);
+        if (valid.ok) return chunk;
+      }
+    }
+
+    return null;
+  }
+
+  generateFullChunkResortChunk(cx, cy) {
+    const candidateTiles = [];
+    const pushUnique = (t) => {
+      if (Number.isInteger(t) && t >= 0 && t < this.rules.tileCount && !candidateTiles.includes(t)) candidateTiles.push(t);
+    };
+    pushUnique(12);
+    pushUnique(25);
+    pushUnique(0);
+
+    for (const tile of candidateTiles) {
+      const grid = new Array(this.chunkSize * this.chunkSize).fill(tile);
+      const chunk = this.makeFallbackChunk(cx, cy, grid, 'full-chunk-resort');
+      const valid = this.validateFallbackChunk(chunk);
+      if (valid.ok) return chunk;
+    }
+    return null;
+  }
+
+  commitGeneratedChunk(chunk) {
+    this.touchMemory(chunk);
+    this.saveToStorage(chunk);
+    this.stats.recordChunk({
+      cx: chunk.cx,
+      cy: chunk.cy,
+      seed: chunk.seed,
+      loadSource: 'generated',
+      mode: chunk.metrics.mode,
+      timeMs: chunk.metrics.timeMs,
+      backtracks: chunk.metrics.backtracks,
+      attempts: chunk.metrics.attempts,
+      contradictions: chunk.metrics.contradictions,
+      internalOk: true,
+      seamOk: true,
+    });
+  }
+
+  recoverFailedRegionWithFallback(region) {
+    const recovered = [];
+    for (let cy = region.minCy; cy <= region.maxCy; cy++) {
+      for (let cx = region.minCx; cx <= region.maxCx; cx++) {
+        if (this.getReadyChunk(cx, cy)) continue;
+        const minimal = this.generateMinimalFallbackChunk(cx, cy);
+        const chunk = minimal || this.generateFullChunkResortChunk(cx, cy);
+        if (!chunk) continue;
+        this.commitGeneratedChunk(chunk);
+        recovered.push(chunk);
+      }
+    }
+    return recovered;
+  }
+
   tick(now) {
     this.ensureVisibleQueued();
     this.startNextJob(now);
@@ -611,6 +838,14 @@ export class WorldManager {
       }
       const solved = this.solveRegion(region, this.solverMode());
       if (!solved) {
+        const recovered = this.recoverFailedRegionWithFallback(region);
+        if (recovered.length > 0) {
+          this.log(`job fallback-ready region ${region.minCx}:${region.maxCx},${region.minCy}:${region.maxCy} recovered=${recovered.length}`);
+          this.activeJob = null;
+          this.ensureFrontierQueued();
+          this.pruneMemory();
+          return;
+        }
         this.log(`job failed region ${region.minCx}:${region.maxCx},${region.minCy}:${region.maxCy}`);
         for (let cy = region.minCy; cy <= region.maxCy; cy++) {
           for (let cx = region.minCx; cx <= region.maxCx; cx++) this.memory.delete(this.key(cx, cy));

@@ -1,22 +1,28 @@
 # Demo Script
 
-1. Open the browser demo and click `Apply demo preset`.
-2. State the fixed demo configuration:
+1. Open `demo.html`.
+2. State the fixed live configuration:
    - seed `20260330`
    - chunk size `10`
    - viewport `8 x 8`
-   - pure backtracking live path
-3. Point out the three panels:
-   - controls
-   - streaming viewport
-   - live stats and event log
-4. Move right a few steps and show that new chunks stream in without seam breaks.
-5. Move back toward an older area and point out that the world remains consistent.
-6. Highlight the live metrics:
-   - generated chunks
-   - storage loads
-   - seam violations
-   - internal violations
-   - revisit consistency
-7. Explain that restart mode is not used in the live path and appears only in the offline comparison harness.
-8. Close by showing the generated figures and the final JSON bundle in `experiments/`.
+   - cache limit `12`
+   - no halo: `h = 0`
+   - backtracking-first live solve
+3. Explain the goal of the demo:
+   - generate chunks ahead
+   - evict chunks behind
+   - reload the same chunk when revisiting
+4. Point out the three things to watch:
+   - the viewport
+   - the event log
+   - the live counters
+5. Move right until new chunks are generated ahead.
+6. Move further so older chunks are evicted from active memory.
+7. Move back toward a previously visited area.
+8. Point out the storage reload event and explain that the same chunk is being recovered from persistent storage.
+9. State the core correctness message:
+   - seam correctness is preserved
+   - internal correctness is preserved
+   - revisit identity is preserved
+10. Close with the main performance statement:
+   - the selected live configuration achieved `1.25 ms` mean and `1.66 ms` p95 chunk-generation time in the canonical 1000-chunk four-direction endurance run.

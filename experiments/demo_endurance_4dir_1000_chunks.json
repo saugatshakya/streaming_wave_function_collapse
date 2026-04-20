@@ -1,0 +1,427 @@
+{
+  "generated_at": "2026-04-18T18:15:35.272Z",
+  "demo_config": {
+    "seed": 20260330,
+    "chunk_size": 10,
+    "viewport_width": 8,
+    "viewport_height": 8,
+    "cache_limit": 12,
+    "halo": 2,
+    "solver_mode": "backtracking",
+    "restart_fallback": true
+  },
+  "movement": {
+    "path_strategy": "forward drifting 4-direction path with periodic revisits",
+    "total_tile_moves": 14760,
+    "total_segments": 1017,
+    "unique_player_chunks_visited": 884,
+    "final_player_position": {
+      "x": 3715,
+      "y": 55
+    }
+  },
+  "empirical_time": {
+    "generated_chunks": 1000,
+    "avg_generation_time_ms": 2.575234711000048,
+    "p95_generation_time_ms": 3.384124999996857,
+    "max_generation_time_ms": 12.110000000000014,
+    "avg_backtracks": 0.284,
+    "avg_attempts": 1,
+    "total_generated_time_ms": 2575.2347110000483
+  },
+  "solver_activity": {
+    "generated_mode_counts": {
+      "backtracking": 1000
+    },
+    "total_attempts": 1000,
+    "total_backtracks": 284,
+    "chunks_with_multiple_attempts": 0,
+    "backtracking_mode_chunks": 1000,
+    "restart_mode_chunks": 0,
+    "structured_fallback_chunks": 0,
+    "simple_fallback_chunks": 0,
+    "unknown_mode_chunks": 0
+  },
+  "empirical_memory": {
+    "current_memory_chunks": 3,
+    "peak_memory_chunks": 13,
+    "peak_queue_length": 2,
+    "memory_evictions": 2056,
+    "storage_loads": 1059,
+    "local_storage_entries": 1000,
+    "active_memory_space_complexity": "O(M * G^2)",
+    "persistent_storage_space_complexity": "O(N * G^2)"
+  },
+  "correctness": {
+    "seam_violations": 0,
+    "internal_violations": 0,
+    "revisit_consistency": true,
+    "reload_checks": [
+      {
+        "generatedAtTrigger": 200,
+        "checkpointChunk": "28,2",
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 49,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 400,
+        "checkpointChunk": "101,2",
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 50,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 600,
+        "checkpointChunk": "173,2",
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 50,
+        "checksumMatches": true
+      },
+      {
+        "generatedAtTrigger": 800,
+        "checkpointChunk": "245,2",
+        "checkpointWasEvicted": true,
+        "storageLoadsAdded": 205,
+        "checksumMatches": true
+      }
+    ],
+    "reload_checks_passed": 4,
+    "reload_checks_failed": 0
+  },
+  "theoretical_complexity": {
+    "boundary_seeding_time": "O(G^2 * T)",
+    "storage_reload_time": "O(G^2)",
+    "active_memory_space": "O(M * G^2)",
+    "persistent_storage_space": "O(N * G^2)",
+    "worst_case_solver_time": "O(T^(G^2))",
+    "symbols": {
+      "G": "chunk size",
+      "T": "tile alphabet size",
+      "M": "memory chunk limit",
+      "N": "generated chunk count"
+    }
+  },
+  "recent_logs": [
+    {
+      "t": 28819.313625,
+      "message": "queued frontier chunks 374,4 trigger<=5"
+    },
+    {
+      "t": 28823.421708,
+      "message": "job ready region 374:374,4:4"
+    },
+    {
+      "t": 28824.608083,
+      "message": "move 0,1 from 3745,27 to 3745,28 dir=down"
+    },
+    {
+      "t": 28826.985333,
+      "message": "move 0,1 from 3745,28 to 3745,29 dir=down"
+    },
+    {
+      "t": 28829.366166,
+      "message": "move 0,1 from 3745,29 to 3745,30 dir=down"
+    },
+    {
+      "t": 28831.739583,
+      "message": "move 0,1 from 3745,30 to 3745,31 dir=down"
+    },
+    {
+      "t": 28834.115083,
+      "message": "move 0,1 from 3745,31 to 3745,32 dir=down"
+    },
+    {
+      "t": 28836.486625,
+      "message": "move 0,1 from 3745,32 to 3745,33 dir=down"
+    },
+    {
+      "t": 28838.874333,
+      "message": "move 0,1 from 3745,33 to 3745,34 dir=down"
+    },
+    {
+      "t": 28841.25,
+      "message": "move 0,1 from 3745,34 to 3745,35 dir=down"
+    },
+    {
+      "t": 28847.411583,
+      "message": "move 0,1 from 3745,35 to 3745,36 dir=down"
+    },
+    {
+      "t": 28849.777125,
+      "message": "move 0,1 from 3745,36 to 3745,37 dir=down"
+    },
+    {
+      "t": 28849.779,
+      "message": "queued frontier chunks 374,5 trigger<=5"
+    },
+    {
+      "t": 28854.1015,
+      "message": "job ready region 374:374,5:5"
+    },
+    {
+      "t": 28855.295833,
+      "message": "move 0,1 from 3745,37 to 3745,38 dir=down"
+    },
+    {
+      "t": 28857.799625,
+      "message": "move 0,1 from 3745,38 to 3745,39 dir=down"
+    },
+    {
+      "t": 28860.172791,
+      "message": "move 0,1 from 3745,39 to 3745,40 dir=down"
+    },
+    {
+      "t": 28862.570041,
+      "message": "move 0,1 from 3745,40 to 3745,41 dir=down"
+    },
+    {
+      "t": 28864.958875,
+      "message": "move 0,1 from 3745,41 to 3745,42 dir=down"
+    },
+    {
+      "t": 28867.3365,
+      "message": "move 0,1 from 3745,42 to 3745,43 dir=down"
+    },
+    {
+      "t": 28869.710458,
+      "message": "move 0,1 from 3745,43 to 3745,44 dir=down"
+    },
+    {
+      "t": 28869.713083,
+      "message": "evicted chunk 373,2"
+    },
+    {
+      "t": 28869.71325,
+      "message": "evicted chunk 374,2"
+    },
+    {
+      "t": 28869.714083,
+      "message": "evicted chunk 375,2"
+    },
+    {
+      "t": 28872.098541,
+      "message": "move 0,1 from 3745,44 to 3745,45 dir=down"
+    },
+    {
+      "t": 28878.273833,
+      "message": "move 0,1 from 3745,45 to 3745,46 dir=down"
+    },
+    {
+      "t": 28880.650666,
+      "message": "move 0,1 from 3745,46 to 3745,47 dir=down"
+    },
+    {
+      "t": 28880.653166,
+      "message": "queued frontier chunks 374,6 trigger<=5"
+    },
+    {
+      "t": 28884.828208,
+      "message": "job ready region 374:374,6:6"
+    },
+    {
+      "t": 28886.019,
+      "message": "move 0,1 from 3745,47 to 3745,48 dir=down"
+    },
+    {
+      "t": 28888.41525,
+      "message": "move 0,1 from 3745,48 to 3745,49 dir=down"
+    },
+    {
+      "t": 28890.786666,
+      "message": "move 0,1 from 3745,49 to 3745,50 dir=down"
+    },
+    {
+      "t": 28893.165458,
+      "message": "move 0,1 from 3745,50 to 3745,51 dir=down"
+    },
+    {
+      "t": 28895.536916,
+      "message": "move 0,1 from 3745,51 to 3745,52 dir=down"
+    },
+    {
+      "t": 28897.91925,
+      "message": "move 0,1 from 3745,52 to 3745,53 dir=down"
+    },
+    {
+      "t": 28900.293208,
+      "message": "move 0,1 from 3745,53 to 3745,54 dir=down"
+    },
+    {
+      "t": 28900.295166,
+      "message": "evicted chunk 374,3"
+    },
+    {
+      "t": 28902.673583,
+      "message": "move 0,1 from 3745,54 to 3745,55 dir=down"
+    },
+    {
+      "t": 28908.90275,
+      "message": "move -1,0 from 3745,55 to 3744,55 dir=left"
+    },
+    {
+      "t": 28908.904916,
+      "message": "queued frontier chunks 373,5 trigger<=5"
+    },
+    {
+      "t": 28913.580166,
+      "message": "job ready region 373:373,5:5"
+    },
+    {
+      "t": 28914.766458,
+      "message": "move -1,0 from 3744,55 to 3743,55 dir=left"
+    },
+    {
+      "t": 28914.768291,
+      "message": "queued frontier chunks 372,5 trigger<=5"
+    },
+    {
+      "t": 28918.843041,
+      "message": "job ready region 372:372,5:5"
+    },
+    {
+      "t": 28920.041416,
+      "message": "move -1,0 from 3743,55 to 3742,55 dir=left"
+    },
+    {
+      "t": 28922.525208,
+      "message": "move -1,0 from 3742,55 to 3741,55 dir=left"
+    },
+    {
+      "t": 28924.95525,
+      "message": "move -1,0 from 3741,55 to 3740,55 dir=left"
+    },
+    {
+      "t": 28927.373958,
+      "message": "move -1,0 from 3740,55 to 3739,55 dir=left"
+    },
+    {
+      "t": 28929.795,
+      "message": "move -1,0 from 3739,55 to 3738,55 dir=left"
+    },
+    {
+      "t": 28932.215583,
+      "message": "move -1,0 from 3738,55 to 3737,55 dir=left"
+    },
+    {
+      "t": 28934.634666,
+      "message": "move -1,0 from 3737,55 to 3736,55 dir=left"
+    },
+    {
+      "t": 28937.080708,
+      "message": "move -1,0 from 3736,55 to 3735,55 dir=left"
+    },
+    {
+      "t": 28943.442708,
+      "message": "move -1,0 from 3735,55 to 3734,55 dir=left"
+    },
+    {
+      "t": 28945.859833,
+      "message": "move -1,0 from 3734,55 to 3733,55 dir=left"
+    },
+    {
+      "t": 28945.865083,
+      "message": "queued frontier chunks 371,5 trigger<=5"
+    },
+    {
+      "t": 28950.181041,
+      "message": "job ready region 371:371,5:5"
+    },
+    {
+      "t": 28951.378666,
+      "message": "move -1,0 from 3733,55 to 3732,55 dir=left"
+    },
+    {
+      "t": 28954.0175,
+      "message": "move -1,0 from 3732,55 to 3731,55 dir=left"
+    },
+    {
+      "t": 28956.475041,
+      "message": "move -1,0 from 3731,55 to 3730,55 dir=left"
+    },
+    {
+      "t": 28958.888416,
+      "message": "move -1,0 from 3730,55 to 3729,55 dir=left"
+    },
+    {
+      "t": 28961.310708,
+      "message": "move -1,0 from 3729,55 to 3728,55 dir=left"
+    },
+    {
+      "t": 28963.751541,
+      "message": "move -1,0 from 3728,55 to 3727,55 dir=left"
+    },
+    {
+      "t": 28966.1495,
+      "message": "move -1,0 from 3727,55 to 3726,55 dir=left"
+    },
+    {
+      "t": 28966.151583,
+      "message": "evicted chunk 374,4"
+    },
+    {
+      "t": 28966.151708,
+      "message": "evicted chunk 374,5"
+    },
+    {
+      "t": 28966.153875,
+      "message": "evicted chunk 374,6"
+    },
+    {
+      "t": 28968.554875,
+      "message": "move -1,0 from 3726,55 to 3725,55 dir=left"
+    },
+    {
+      "t": 28974.910208,
+      "message": "move -1,0 from 3725,55 to 3724,55 dir=left"
+    },
+    {
+      "t": 28977.332,
+      "message": "move -1,0 from 3724,55 to 3723,55 dir=left"
+    },
+    {
+      "t": 28977.336958,
+      "message": "queued frontier chunks 370,5 trigger<=5"
+    },
+    {
+      "t": 28981.416291,
+      "message": "job ready region 370:370,5:5"
+    },
+    {
+      "t": 28982.627,
+      "message": "move -1,0 from 3723,55 to 3722,55 dir=left"
+    },
+    {
+      "t": 28985.04275,
+      "message": "move -1,0 from 3722,55 to 3721,55 dir=left"
+    },
+    {
+      "t": 28987.481166,
+      "message": "move -1,0 from 3721,55 to 3720,55 dir=left"
+    },
+    {
+      "t": 28989.895041,
+      "message": "move -1,0 from 3720,55 to 3719,55 dir=left"
+    },
+    {
+      "t": 28992.31625,
+      "message": "move -1,0 from 3719,55 to 3718,55 dir=left"
+    },
+    {
+      "t": 28994.735541,
+      "message": "move -1,0 from 3718,55 to 3717,55 dir=left"
+    },
+    {
+      "t": 28997.144666,
+      "message": "move -1,0 from 3717,55 to 3716,55 dir=left"
+    },
+    {
+      "t": 28997.14675,
+      "message": "evicted chunk 373,5"
+    },
+    {
+      "t": 28999.559916,
+      "message": "move -1,0 from 3716,55 to 3715,55 dir=left"
+    }
+  ]
+}

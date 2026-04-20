@@ -4,6 +4,17 @@ import { WorldManager } from './world.js';
 import { StatsStore } from './stats.js';
 import { hashCoords } from './rng.js';
 import { WFCSolver } from './solver.js';
+import {
+  DEMO_PRESET,
+  MAIN_PRESET,
+  CONTROLLED_RUNS,
+  CONTROLLED_MAX_TIME_MS,
+  DEMO_SOLVER_MAX_TIME_MS,
+  STATS_RENDER_INTERVAL_MS,
+  MAX_LOG_ENTRIES,
+  TILE_SIZE,
+  JPEG_QUALITY,
+} from './CONFIG.js';
 
 const stats = new StatsStore();
 let rules = null;
@@ -37,17 +48,6 @@ const experimentState = {
   lastStepDurationMs: 0,
 };
 
-const DEMO_PRESET = Object.freeze({
-  worldSeed: 20260330,
-  cacheLimit: 12,
-  chunkSize: 10,
-  viewportWidth: 8,
-  viewportHeight: 8,
-});
-const CONTROLLED_RUNS = 100;
-const CONTROLLED_MAX_TIME_MS = 5000;
-const DEMO_SOLVER_MAX_TIME_MS = 180;
-const STATS_RENDER_INTERVAL_MS = 180;
 let lastStatsRenderAt = 0;
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -56,7 +56,7 @@ function log(message) {
   const line = document.createElement('div');
   line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
   els.log.prepend(line);
-  while (els.log.children.length > 160) els.log.removeChild(els.log.lastChild);
+  while (els.log.children.length > MAX_LOG_ENTRIES) els.log.removeChild(els.log.lastChild);
 }
 
 function formatDuration(ms) {
@@ -164,35 +164,58 @@ function renderStats(force = false) {
 
 function render(forceStats = false) {
   if (!world || !rules) return;
-  drawViewport(els.canvas, { world, rules, tileSize: 28 });
+  drawViewport(els.canvas, { world, rules, tileSize: TILE_SIZE });
   renderStats(forceStats);
 }
 
 async function initWorld({ preserveLog = false } = {}) {
-  if (!rules) rules = await loadSummerRules();
+  if (!rules) {
+    try {
+      rules = await loadSummerRules();
+    } catch (error) {
+      log(`Error loading rules: ${error.message}`);
+      throw error;
+    }
+  }
   if (!preserveLog) els.log.innerHTML = '';
   window.__rules = rules;
   stats.reset();
-  world = new WorldManager({
-    rules,
-    stats,
-    chunkSize: Number(els.chunkSize.value),
-    viewportWidth: Number(els.viewportWidth.value),
-    viewportHeight: Number(els.viewportHeight.value),
-    cacheLimit: Number(els.cacheLimit.value),
-    worldSeed: Number(els.worldSeed.value),
-    solverMaxTimeMs: DEMO_SOLVER_MAX_TIME_MS,
-    demoMode: true,
-    allowFallbackRestart: true,
-    fallbackMaxRestarts: 48,
-  });
-  world.setLogger(message => {
-    if (shouldLogForDemo(message)) log(message);
-  });
-  world.setPlayerStart(Math.floor(world.chunkSize * 2.5), Math.floor(world.chunkSize * 2.5));
-  world.generateAlignedViewportBlock();
-  render(true);
-  els.progress.textContent = `Demo ready. Move around to generate chunks ahead, evict chunks behind, and reload the same tiles from storage on return.`;
+  
+  // Validate input values to prevent NaN
+  const validateInput = (value, min = 1, max = 1000000) => {
+    const num = Number(value);
+    if (isNaN(num) || num < min || num > max) {
+      throw new Error(`Invalid input value: ${value}. Expected number between ${min} and ${max}.`);
+    }
+    return num;
+  };
+  
+  try {
+    world = new WorldManager({
+      rules,
+      stats,
+      chunkSize: validateInput(els.chunkSize.value, 1, 100),
+      viewportWidth: validateInput(els.viewportWidth.value, 1, 100),
+      viewportHeight: validateInput(els.viewportHeight.value, 1, 100),
+      cacheLimit: validateInput(els.cacheLimit.value, 1, 1000),
+      worldSeed: validateInput(els.worldSeed.value, 0, 999999999),
+      solverMaxTimeMs: DEMO_SOLVER_MAX_TIME_MS,
+      demoMode: true,
+      allowFallbackRestart: true,
+      fallbackMaxRestarts: 48,
+    });
+    world.halo = 0;
+    world.setLogger(message => {
+      if (shouldLogForDemo(message)) log(message);
+    });
+    world.setPlayerStart(Math.floor(world.chunkSize * 2.5), Math.floor(world.chunkSize * 2.5));
+    world.generateAlignedViewportBlock();
+    render(true);
+    els.progress.textContent = `Demo ready. Move around to generate chunks ahead, evict chunks behind, and reload the same tiles from storage on return.`;
+  } catch (error) {
+    log(`Failed to initialize world: ${error.message}`);
+    throw error;
+  }
 }
 
 function applyDemoPreset() {
@@ -211,17 +234,21 @@ function move(dx, dy) {
 }
 
 function clearPersisted() {
-  const remove = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key && key.startsWith('streaming-wfc:')) remove.push(key);
+  try {
+    const remove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('streaming-wfc:')) remove.push(key);
+    }
+    remove.forEach(key => localStorage.removeItem(key));
+    log(`Removed ${remove.length} persisted chunks.`);
+  } catch (error) {
+    log(`Warning: Could not access localStorage: ${error.message}`);
   }
-  remove.forEach(key => localStorage.removeItem(key));
-  log(`Removed ${remove.length} persisted chunks.`);
 }
 
 function captureImage(label) {
-  return { label, image: els.canvas.toDataURL('image/jpeg', 0.32) };
+  return { label, image: els.canvas.toDataURL('image/jpeg', JPEG_QUALITY) };
 }
 
 async function settle(frames = 6, ms = 24) {

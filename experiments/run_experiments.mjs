@@ -25,6 +25,10 @@ const MAX_RESTARTS = 160;
 const CONTROLLED_MAX_TIME_MS = 5000;
 const STREAMING_MAX_TIME_MS = 30000;
 const OUTPUT_PATH = path.resolve(process.cwd(), 'experiments', 'streaming_wfc_experiment_bundle.json');
+const EXPERIMENT_SIZES = (process.env.WFC_SIZES || '10,20,30')
+  .split(',')
+  .map(value => Number(value.trim()))
+  .filter(value => Number.isFinite(value) && value > 0);
 
 if (!globalThis.performance) globalThis.performance = performance;
 
@@ -323,7 +327,7 @@ function findBoundarySeedingCase(rules) {
 
 async function runControlledComparison(rules) {
   console.log('Running controlled restart-vs-backtracking comparison...');
-  const sizes = [10, 20, 30];
+  const sizes = EXPERIMENT_SIZES;
   const rows = [];
 
   for (const size of sizes) {
@@ -457,7 +461,7 @@ async function runStreamingScenario(rules, chunkSize) {
 async function runStreamingScenarios(rules) {
   console.log('Running streaming scenarios...');
   const scenarios = [];
-  for (const chunkSize of [10, 20, 30]) {
+  for (const chunkSize of EXPERIMENT_SIZES) {
     console.log(`  scenario ${chunkSize}x${chunkSize}`);
     scenarios.push(await runStreamingScenario(rules, chunkSize));
   }
@@ -582,7 +586,7 @@ function runHaloTrial(rules, chunkSize, seedOffset, contextChunks, trialIndex, h
 async function runHaloAblation(rules) {
   console.log('Running halo ablation...');
   const rows = [];
-  for (const size of [10, 20, 30]) {
+  for (const size of EXPERIMENT_SIZES) {
     console.log(`  halo ablation ${size}x${size}: ${HALO_ABLATION_RUNS} trials per halo`);
     const halo0 = [];
     const halo2 = [];
@@ -630,7 +634,7 @@ async function runHaloAblation(rules) {
   }
   return {
     config: {
-      sizes: [10, 20, 30],
+      sizes: EXPERIMENT_SIZES,
       runs_per_halo: HALO_ABLATION_RUNS,
       target_region: { cx: 1, cy: 1 },
       fixed_boundary_context: true,

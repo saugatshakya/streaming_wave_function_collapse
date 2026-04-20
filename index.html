@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Streaming WFC Terrain</title>
+  <title>Streaming WFC Lab</title>
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
@@ -16,8 +16,8 @@
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     label { font-size: .88rem; color: #a8b5c7; display: grid; gap: 6px; min-width: 0; }
     input { background: #07111d; border: 1px solid rgba(255,255,255,.08); color: #eef2f7; border-radius: 12px; padding: 10px 12px; font-size: 1rem; width: 100%; min-width: 0; }
-    button { background: #0a1728; color: #eef2f7; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 11px 12px; font-size: .98rem; cursor: pointer; }
-    button:hover { background: #12233a; }
+    button, .button-link { background: #0a1728; color: #eef2f7; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 11px 12px; font-size: .98rem; cursor: pointer; text-decoration: none; text-align: center; display: inline-block; }
+    button:hover, .button-link:hover { background: #12233a; }
     button:disabled { opacity: .5; cursor: not-allowed; }
     .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .button-grid .wide { grid-column: 1 / -1; }
@@ -44,22 +44,23 @@
 <body>
   <div class="layout">
     <div class="card controls">
-      <h1>Streaming WFC Terrain</h1>
+      <h1>Streaming WFC Lab</h1>
       <div class="grid2">
         <label>World seed <input id="worldSeed" type="number" value="20260330" /></label>
-        <label>Cache limit <input id="cacheLimit" type="number" value="20" /></label>
+        <label>Cache limit <input id="cacheLimit" type="number" value="12" /></label>
         <label>Chunk size <input id="chunkSize" type="number" value="10" /></label>
         <label>Viewport width <input id="viewportWidth" type="number" value="8" /></label>
         <label>Viewport height <input id="viewportHeight" type="number" value="8" /></label>
       </div>
       <div class="button-grid">
-        <button id="applyDemoPreset">Apply demo preset</button>
+        <button id="applyDemoPreset">Apply test preset</button>
         <button id="resetWorld">Reset world</button>
         <button id="clearStorage">Clear persisted</button>
         <button id="runExperiment" class="wide">Run offline experiments</button>
+        <a class="button-link wide" href="./demo.html">Open pure demo</a>
       </div>
       <div class="status-box" id="progressText">Ready.</div>
-      <p class="muted">Demo preset: chunk 10, viewport 8×8, seed 20260330. The live path is optimized for smooth movement, visible chunk generation, memory eviction, and storage reload on revisit.</p>
+      <p class="muted">This page is the experiment and testing surface. Use it for manual stress movement, solver comparison, storage checks, and the offline experiment bundle. Use <code>demo.html</code> for the class presentation.</p>
       <div class="moves">
         <button id="moveUp">▲</button>
         <button id="moveLeft">◀</button>
@@ -70,11 +71,11 @@
     </div>
 
     <div class="card viewport-wrap">
-      <h1>Streaming viewport</h1>
+      <h1>Testing viewport</h1>
       <canvas id="viewportCanvas"></canvas>
-      <p class="muted">White rectangle = actual visible viewport. The outer frame stays fixed. Missing visible chunks are queued immediately; frontier chunks are queued only when movement approaches a boundary.</p>
+      <p class="muted">White rectangle = actual visible viewport. Use this view to inspect queued chunks, retry behavior, storage reloads, and boundary behavior while moving in all 4 directions.</p>
       <details>
-        <summary class="muted" style="cursor:pointer;">Optional offline experiment comparison</summary>
+        <summary class="muted" style="cursor:pointer;">Controlled offline solver comparison</summary>
         <table style="margin-top:12px;">
           <thead>
             <tr><th>Grid</th><th>Runs</th><th>Backtrack success</th><th>Backtrack avg time</th><th>Backtrack avg attempts</th><th>Backtrack avg backtracks</th><th>Restart success</th><th>Restart avg time</th><th>Restart avg attempts</th></tr>
@@ -85,9 +86,9 @@
     </div>
 
     <div class="card" style="display:grid; gap:16px; align-content:start; min-width:0;">
-      <h1>Live stats</h1>
+      <h1>Test stats</h1>
       <div id="statsPanel"></div>
-      <h2>Event log</h2>
+      <h2>Test log</h2>
       <div id="eventLog" class="event-log"></div>
     </div>
   </div>

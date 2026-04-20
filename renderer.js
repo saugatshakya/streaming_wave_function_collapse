@@ -1,9 +1,8 @@
+import { getTileColor } from './utils.js';
+
 function drawFallback(ctx, x, y, s, tile) {
   const name = tile.name;
-  if (name.startsWith('water')) ctx.fillStyle = '#3fa7f0';
-  else if (name.startsWith('road')) ctx.fillStyle = '#d9be7c';
-  else if (name.startsWith('cliff')) ctx.fillStyle = '#70411f';
-  else ctx.fillStyle = '#65b93c';
+  ctx.fillStyle = getTileColor(name);
   ctx.fillRect(x, y, s, s);
 }
 
@@ -48,6 +47,10 @@ function previewValueForChunk(chunk, lx, ly) {
 export function drawViewport(canvas, { world, rules, tileSize = 24 }) {
   const frame = world.renderWindow();
   const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    console.error('Failed to get 2D canvas context');
+    return;
+  }
   const chunkCache = new Map();
   canvas.width = frame.width * tileSize;
   canvas.height = frame.height * tileSize;
