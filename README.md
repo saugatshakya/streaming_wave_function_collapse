@@ -4,7 +4,7 @@ Course project repository for streaming terrain generation with Wave Function Co
 
 The project treats streaming WFC as an incremental constraint-satisfaction problem: chunks are generated next to already committed neighbors, validated before commit, evicted under a memory cap, and reconstructed on revisit from stored seed records.
 
-## Overview
+## Project Details
 
 The implementation combines four core ideas:
 
@@ -14,6 +14,23 @@ The implementation combines four core ideas:
 - Bounded-memory world state, so active chunks are capped and evicted chunks are reconstructed from stored seed metadata.
 
 This gives a streaming pipeline that is interactive, deterministic, and auditable.
+
+## Results
+
+The current implementation was evaluated with three main result sets:
+
+- Controlled benchmark comparison: backtracking is consistently faster than restart on the seeded `10x10` and `20x20` instances used in the report.
+- Streaming scalability runs: `10x10` stays within the interactive range, while `20x20` exceeds the 16 ms target under load.
+- Canonical 1000-chunk endurance run: the system maintained zero seam violations, zero internal violations, and consistent revisit replay under bounded memory.
+
+Representative headline numbers from the report:
+
+- Controlled benchmark mean solve time: `10x10` backtracking `1.45 ms`, restart `3.22 ms`.
+- Controlled benchmark mean solve time: `20x20` backtracking `11.78 ms`, restart `40.37 ms`.
+- Streaming mean generation time: `10x10` `3.20 ms`, `20x20` `17.46 ms`.
+- Endurance run summary: mean `2.58 ms`, p95 `3.38 ms`, max `12.11 ms`.
+- Endurance run integrity: seam violations `0`, internal violations `0`, sampled revisit checks `4/4` passed.
+- Endurance run memory behavior: peak active memory `13` chunks with limit `12`, evictions `2056`, replay loads `1059`.
 
 ## Repository Layout
 
@@ -56,19 +73,3 @@ node experiments/run_demo_endurance_4dir.mjs
 python3 experiments/generate_result_graphs.py
 ```
 
-Report build:
-
-```bash
-pdflatex -interaction=nonstopmode main.tex
-bibtex main
-pdflatex -interaction=nonstopmode main.tex
-pdflatex -interaction=nonstopmode main.tex
-```
-
-## Report Assets
-
-The thesis manuscript is in `report/WFC_Masters_Thesis_Final.tex`. Figure assets used by the report live in `figures/report/`.
-
-## Notes on Generated Files
-
-Build artifacts such as `main.pdf`, LaTeX auxiliary files, and local virtual environments are ignored through `.gitignore` so the repository stays focused on source, figures, and experiment data.
